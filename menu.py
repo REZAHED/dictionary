@@ -1,4 +1,3 @@
-import openfile
 from colors import fg,bg,style
 
  # class bcolors:
@@ -17,7 +16,6 @@ class Menus:
 
     @staticmethod
     def show_menu(value=None):
-        # print(f"{bcolors.WARNING}Warning: No active frommets remain. Continue?{bcolors.ENDC}")
         print(fg.YELLOW + "Welcome to my firt Dictionary")
         print("выбирайте из списка:")
         print(style.RESET_ALL+""" 
@@ -46,15 +44,15 @@ class Menus:
     #
     #     return select
 
-
-    @staticmethod
-    def third_menu():
-
-
-
-        select = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
-
-        return select
+    #
+    # @staticmethod
+    # def third_menu():
+    #
+    #
+    #
+    #     select = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
+    #
+    #     return select
 
 
 

@@ -1,10 +1,8 @@
-import json
 import os
 import menu
 import openfile
 from colors import fg, bg, style
 import cheking
-import write_to_file
 
 os.system('color')
 
