@@ -4,7 +4,7 @@ class Menus:
 
 
     @staticmethod
-    def show_menu(value=""):
+    def show_menu():
 
 
         print('\033[33m' + '\033[1m' + "Welcome to my firt Dictionary")
@@ -15,26 +15,26 @@ class Menus:
         [3] меню
         [0] выход
         """)
-        if not value:
-            select = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
-            return select
-        else:
-            return value
 
-
-    @staticmethod
-    def secound_menu():
-
-        print("Файл пустой!")
-        print("выбирайте из списка:")
-        print("""
-                [2] посмотреть записанные слова
-                [3] вернуться в меню
-                [0] выход
-                    """)
         select = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
 
+
         return select
+
+
+    # @staticmethod
+    # def secound_menu():
+    #
+    #     print("Файл пустой!")
+    #     print("выбирайте из списка:")
+    #     print("""
+    #             [2] посмотреть записанные слова
+    #             [3] вернуться в меню
+    #             [0] выход
+    #                 """)
+    #     select = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
+    #
+    #     return select
 
 
     @staticmethod

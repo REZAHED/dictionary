@@ -14,13 +14,13 @@ class OpenFile:
     def opening_json(self):
 
         if os.path.getsize('dictionary.json') !=0:
-            with open(self, 'r', encoding='utf-8-sig') as file:
+            with open(self, 'r', encoding='utf-8') as file:
                 return json.load(file)
         else:
-            pass
-if __name__=="__main__":
-    a=OpenFile()
-    a.opening_read('dictionary.json')
-    a.opening_json('dictionary.json')
+            print("файл пустой")
+# if __name__=="__main__":
+#     a=OpenFile()
+#     a.opening_read('dictionary.json')
+#     a.opening_json('dictionary.json')
 
 
