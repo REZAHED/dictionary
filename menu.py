@@ -1,5 +1,5 @@
 import openfile
-import colors
+from colors import fg,bg,style
 
  # class bcolors:
  #    HEADER = '\033[95m'
@@ -16,11 +16,11 @@ class Menus:
 
 
     @staticmethod
-    def show_menu(value=""):
+    def show_menu(value=None):
         # print(f"{bcolors.WARNING}Warning: No active frommets remain. Continue?{bcolors.ENDC}")
-        print(colors.fg.YELLOW + "Welcome to my firt Dictionary")
+        print(fg.YELLOW + "Welcome to my firt Dictionary")
         print("выбирайте из списка:")
-        print( colors.style.RESET_ALL+""" 
+        print(style.RESET_ALL+""" 
         [1] поиск в словаре
         [2] посмотреть записанные слова
         [0] выход
