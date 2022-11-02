@@ -88,7 +88,7 @@ def select_action(value):
             select_action(text)
 
     elif value == '3':
-        print(value)
+
         a = menu.Menus.show_menu()
         select_action(a)
 

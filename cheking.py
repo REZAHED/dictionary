@@ -18,7 +18,8 @@ class Cheking:
 
         else:
             write_to = write_to_file.Write_To_File()
-            print('\033[32m' + '\033[1m' + "Данное слово не найдено!! \nВведите его значение для записи в словарь:")
+            print('\033[32m' + '\033[1m' + "Данное слово не найдено!! "
+                                           "\nВведите его значение для записи в словарь: -> ",end="")
             text_translate = input().lower().strip()
             print('\033[34m' + write_to.dic_to_file(text, text_translate))
 
