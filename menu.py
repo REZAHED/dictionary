@@ -1,3 +1,5 @@
+import os
+
 from colors import fg,bg,style
 
  # class bcolors:
@@ -29,8 +31,10 @@ class Menus:
             select = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
             while select.isdigit() and select not in lst_choose:
                 select = input('\033[32m' + '\033[1m' + "введите правильный номер:-> ").lower().strip()
+            os.system('cls')
             return select
 
+        os.system('cls')
         return value
 
 

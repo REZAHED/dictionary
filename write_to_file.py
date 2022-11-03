@@ -1,9 +1,11 @@
+import os
+
 import openfile
 import  json
 
 
 class Write_To_File:
-
+    os.system('cls')
     def __init__(self, a="" ,b=""):
         self.a=a
         self.b=b
@@ -20,4 +22,5 @@ class Write_To_File:
             dic_en_rus = {word: translate}
         with open('dictionary.json', 'r+', encoding='utf-8-sig') as file:
             json.dump(dic_en_rus, file, indent=2, ensure_ascii=False)
+            os.system('cls')
         return f'Слово --{word.upper()}-- и его значение --{translate.upper()}-- успешно сохранены.'
