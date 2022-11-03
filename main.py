@@ -1,7 +1,7 @@
 import os
 import menu
 import openfile
-from colors import fg, bg, style
+from colors import fg, style
 import cheking
 
 os.system('color')
@@ -28,7 +28,7 @@ def select_action(value):
         if os.path.exists('dictionary.json'):
             text = input(fg.CYAN + "Введите слово для перевода"
                                    " или выбирайте из меню :-> " + style.RESET_ALL).lower().strip()
-            while text.isdigit() and not text in lst_choose:
+            while text.isdigit() and text not in lst_choose:
                 text = input('\033[32m' + '\033[1m' + "введите правильный номер:-> ").lower().strip()
 
         else:
@@ -37,7 +37,7 @@ def select_action(value):
             file.close()
             text = input('\033[32m' + '\033[1m' + "Введите слово для перевода"
                                                   " или выбирайте из меню :-> ").lower().strip()
-            while text.isdigit() and not text in lst_choose:
+            while text.isdigit() and text not in lst_choose:
                 text = input('\033[32m' + '\033[1m' + "введите правильный номер:-> ").lower().strip()
 
         if text == "0":
@@ -47,10 +47,10 @@ def select_action(value):
             value = text
             select_action(value)
 
-        elif text.isalpha():
+        elif text.replace(" ", "").replace("-", "").isalpha():
             read = openfile.OpenFile()
-            dic_en_rus = read.opening_json('dictionary.json')
-            cheking.Cheking.checking(dic_en_rus, text)
+            dic_ = read.opening_json('dictionary.json')
+            cheking.Cheking.checking(dic_, text)
             select_action("1")
 
         elif text == "2":
@@ -68,13 +68,13 @@ def select_action(value):
         if os.path.exists('dictionary.json') and os.path.getsize('dictionary.json') != 0:
             read = openfile.OpenFile()
 
-            dic_en_rus = read.opening_json('dictionary.json')
+            dic_ = read.opening_json('dictionary.json')
             c = 1
-            for i, j in dic_en_rus.items():
+            for i, j in dic_.items():
                 print(f' {str(c) + ". "}{i}' + style.RESET_ALL + '  -> ' + f' {j}  ')
                 c += 1
             text = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
-            while text.isdigit() and not text in lst_choose:
+            while text.isdigit() and text not in lst_choose:
                 text = input('\033[32m' + '\033[1m' + "введите правильный номер:-> ").lower().strip()
 
             else:
@@ -87,8 +87,8 @@ def select_action(value):
 
     elif value == '3':
 
-        a = menu.Menus.show_menu()
-        select_action(a)
+        b = menu.Menus.show_menu()
+        select_action(b)
 
     elif value == '0':
 
