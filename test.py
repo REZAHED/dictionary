@@ -1,6 +1,7 @@
+from tabulate import tabulate
 
-def action():
-    text = "hello"
-    return text
 
-print(action())
+dic = {"a" : "ball", 'email' : 'ali'}
+del dic['a']
+print(dic)
+
