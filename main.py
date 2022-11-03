@@ -22,9 +22,9 @@ def select_action(value):
 
         print("""
 
-        [2] посмотреть записанные слова
-        [3] меню
-        [0] выход
+[2] посмотреть слова
+[3] меню
+[0] выход
         """)
         if os.path.exists('dictionary.json'):
             text = input(fg.CYAN + "Введите слово для перевода\n"
@@ -74,10 +74,10 @@ def select_action(value):
         lst_choose = ['1', '3', '0','4']
         print("""
 
-        [1] поиск в словаре
-        [3] меню
-        [4] изменение 
-        [0] выход
+[1] поиск в словаре
+[3] меню
+[4] изменение 
+[0] выход
         """)
         if os.path.exists('dictionary.json') and os.path.getsize('dictionary.json') != 0:
             read = openfile.OpenFile()
@@ -108,6 +108,14 @@ def select_action(value):
         select_action(b)
 
     elif value == '4':
+        lst_choose = ['2', '3', '0']
+
+        print("""
+[1] поиск в словаре
+[2] посмотреть слова
+[3] меню
+[0] выход
+                """)
         print("здесь вы можете изменить/удалить слова")
 
 

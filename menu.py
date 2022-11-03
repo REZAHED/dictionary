@@ -16,14 +16,15 @@ class Menus:
 
     @staticmethod
     def show_menu(value=None):
-        lst_choose=['1','2','0']
+        lst_choose=['1','2','0','4']
         print(fg.YELLOW + "Welcome to my first Dictionary")
         print("выбирайте из списка:")
         print(style.RESET_ALL+""" 
-        [1] поиск в словаре
-        [2] посмотреть записанные слова
-        [0] выход
-        """)
+[1] поиск в словаре
+[2] посмотреть слова
+[4] изменение
+[0] выход
+""")
         if not value:
             select = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
             while select.isdigit() and select not in lst_choose:
