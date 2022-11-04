@@ -1,12 +1,9 @@
 import os
-import keyboard
 
 import colors
 import openfile
 import write_to_file
 import select
-
-dic_en = {}
 
 
 class Cheking:
@@ -88,3 +85,4 @@ class Cheking:
         # print("\nВведите его значение для записи в словарь: -> ", end="")
         # text_translate = input().lower().strip()
         # print('\033[34m' + write_to.dic_to_file(text, text_translate))
+

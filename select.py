@@ -1,23 +1,22 @@
 import json
 import os
-
 from tabulate import tabulate
-
-import cheking
 import colors
 import menu
 import openfile
+import write_to_file
+from cheking import Cheking
 from colors import fg, style
 
 
-def select_action(value , arg=''):
+def select_action(value, arg=''):
     global text
     lst = ['1', '2', '0', '3', '4', '\\', '/', '%']
     while value not in lst:
         value = input('\033[32m' + '\033[1m' + "введите правильный номер:-> ").lower().strip()
 
     if value == '1' or value == '\\':
-        lst_choose = ['1','2', '3', '0']
+        lst_choose = ['1', '2', '3', '0']
 
         print("""
 [1] занова искать 
@@ -29,9 +28,8 @@ def select_action(value , arg=''):
             text = input(fg.CYAN + "Введите слово для перевода\n"
                                    " или выбирайте из меню :-> " + style.RESET_ALL).lower().strip()
             while text.isdigit() and text not in lst_choose or text == "":
-
-
-                text = input('\033[32m' + '\033[1m' + "введите правильный номер:-> "+colors.style.RESET_ALL).lower().strip()
+                text = input(
+                    '\033[32m' + '\033[1m' + "введите правильный номер:-> " + colors.style.RESET_ALL).lower().strip()
 
         else:
             print("новый файл создан")
@@ -61,14 +59,14 @@ def select_action(value , arg=''):
 
             read = openfile.OpenFile()
             dic_ = read.opening_json('dictionary.json')
-            cheking.Cheking.checking(dic_, text)
+            Cheking.checking(dic_, text)
 
             select_action("1")
         elif text.replace(" ", "").replace("-", "").isalpha() and os.path.getsize('dictionary.json') == 0:
             read = openfile.OpenFile()
             dic_ = read.opening_json('dictionary.json')
 
-            cheking.Cheking.checking(None, text)
+            Cheking.checking(None, text)
         elif text == "2":
             os.system('cls')
             value = text
@@ -88,7 +86,6 @@ def select_action(value , arg=''):
 
 
     elif value == '2':
-
 
         os.system('cls')
         lst_choose = ['1', '3', '0', '4', '\\', '/']
@@ -143,8 +140,6 @@ def select_action(value , arg=''):
             if arg:
                 print(arg)
 
-
-
             text = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
             while text == "":
                 text = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
@@ -168,26 +163,25 @@ def select_action(value , arg=''):
 
                                 new_word = input('\033[32m' + '\033[1m' + "введите новый вариант:-> ").lower().strip()
                                 while new_word == "":
-                                        new_word = input(
+                                    new_word = input(
                                         '\033[32m' + '\033[1m' + "введите новый вариант:-> ").lower().strip()
                                 if new_word in lst_choose:
                                     select_action(new_word)
                                 del dic_[i[1]]
 
-                                dic_.update({new_word:i[2]})
+                                dic_.update({new_word: i[2]})
                                 with open('dictionary.json', 'w+', encoding='utf-8-sig') as file:
                                     json.dump(dic_, file, indent=2, ensure_ascii=False)
                                     os.system('cls')
                                 # print(f'Слово --{i[1]}-- и его значение --{i[2]}-- успешно удалены.')
-                                select_action("2",f'запись  {i[1]}'.upper()+f' изменена на {new_word.upper()}')
+                                select_action("2", f'запись  {i[1]}'.upper() + f' изменена на {new_word.upper()}')
 
 
                             elif text == '2':
 
                                 new_word = input('\033[32m' + '\033[1m' + "введите новый вариант:-> ").lower().strip()
 
-
-                                dic_.update({i[1]:new_word})
+                                dic_.update({i[1]: new_word})
                                 with open('dictionary.json', 'w+', encoding='utf-8-sig') as file:
                                     json.dump(dic_, file, indent=2, ensure_ascii=False)
                                     os.system('cls')
@@ -202,14 +196,13 @@ def select_action(value , arg=''):
                                     json.dump(dic_, file, indent=2, ensure_ascii=False)
                                     os.system('cls')
                                 # print(f'Слово --{i[1]}-- и его значение --{i[2]}-- успешно удалены.')
-                                select_action("2",f'запись  {i[1]}'.upper() + f' : {i[2].upper()} удалена')
+                                select_action("2", f'запись  {i[1]}'.upper() + f' : {i[2].upper()} удалена')
                             elif text in lst_choose:
                                 select_action(text)
 
                 else:
 
-
-                    select_action('2','такого номера нет!')
+                    select_action('2', 'такого номера нет!')
 
             # while text.isdigit() and text not in lst_choose:
             #     text = input('\033[32m' + '\033[1m' + "введите правильный номер:-> ").lower().strip()
@@ -220,10 +213,10 @@ def select_action(value , arg=''):
 
         elif os.path.exists('dictionary.json') and os.path.getsize('dictionary.json') == 0:
             print("Словарь пустой. выбирайте  [1]\n и создайте словарь")
-            text = input('\033[32m' + '\033[1m' + "ваш выбор::-> " +colors.style.RESET_ALL).lower().strip()
+            text = input('\033[32m' + '\033[1m' + "ваш выбор::-> " + colors.style.RESET_ALL).lower().strip()
             select_action(text)
         elif not os.path.exists('dictionary.json'):
-            print(colors.fg.YELLOW+"нет файла словаря. выбирайте  [1]\n и создайте новый словарь")
+            print(colors.fg.YELLOW + "нет файла словаря. выбирайте  [1]\n и создайте новый словарь")
             text = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
             select_action(text)
     elif value == '3' or value == '/':
@@ -259,3 +252,8 @@ def select_action(value , arg=''):
         input("enter to exit")
         exit()
     return text
+
+
+# a=menu.Menus.show_menu()
+# select_action(a)
+

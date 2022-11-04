@@ -1,4 +1,5 @@
 import os
+
 import menu
 import select
 
@@ -12,6 +13,6 @@ text = ""
 
 # функия для выбора из меню. работает с статическими методами в модули menu
 
-
-a = menu.Menus.show_menu()
+a=menu.Menus.show_menu()
 select.select_action(a)
+
