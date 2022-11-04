@@ -1,5 +1,6 @@
 import os
 
+import colors
 import openfile
 import  json
 
@@ -23,4 +24,4 @@ class Write_To_File:
         with open('dictionary.json', 'r+', encoding='utf-8-sig') as file:
             json.dump(dic_en_rus, file, indent=2, ensure_ascii=False)
             os.system('cls')
-        return f'Слово --{word.upper()}-- и его значение --{translate.upper()}-- успешно сохранены.'
+        return colors.fg.YELLOW+ f'Слово --{word.upper()}-- и его значение --{translate.upper()}-- успешно сохранены.'

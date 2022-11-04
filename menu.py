@@ -1,5 +1,5 @@
-import os
 
+import select
 from colors import fg,bg,style
 
  # class bcolors:
@@ -27,13 +27,14 @@ class Menus:
 [0] выход
 """)
         if not value:
-            select = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
-            while select.isdigit() and select not in lst_choose:
-                select = input('\033[32m' + '\033[1m' + "введите правильный номер:-> ").lower().strip()
-            os.system('cls')
-            return select
+            text = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
+            while text.isdigit() and text not in lst_choose:
+                text = input('\033[32m' + '\033[1m' + "введите правильный номер:-> ").lower().strip()
+            # os.system('cls')
 
-        os.system('cls')
+            return text
+
+        # os.system('cls')
         return value
 
 

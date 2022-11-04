@@ -1,7 +1,10 @@
 import os
 import keyboard
+
+import colors
 import openfile
 import write_to_file
+import select
 
 dic_en = {}
 
@@ -32,6 +35,7 @@ class Cheking:
             check = input().lower().strip()
 
             check_lst = ["+", "-"]
+            lst_choose=['1','3' ,'2','0']
             # else:
             while check not in check_lst:
                 check = input("введите ' + ' или ' - '   :-> ").lower().strip()
@@ -39,23 +43,43 @@ class Cheking:
             if check == '+':
                 print("\nВведите его значение \n для записи в словарь: -> ", end="")
                 text_translate = input().lower().strip()
-                while not text_translate.isalpha():
+
+                while not text_translate.replace(" ",'').isalpha() and text_translate not in lst_choose:
+
                     print("Введите правильное значение: -> ", end="")
                     text_translate = input().lower().strip()
                     os.system('cls')
-                print('\033[34m' + write_to.dic_to_file(text, text_translate))
+                if text_translate in lst_choose:
+                    os.system('cls')
+                    select.select_action(text_translate)
+                else:
+                    print('\033[34m' + write_to.dic_to_file(text, text_translate))
 
 
 
 
             elif check == "-":
                 Cheking.choose()
-
+        elif dic is None:
+            write_to = write_to_file.Write_To_File()
+            lst_choose = ['1', '3', '2', '0']
+            print(colors.style.RESET_ALL+"\n---Cловарь пустой---")
+            print("\nВведите его значение \nдля записи в словарь: -> ", end="")
+            text_translate = input().lower().strip()
+            if text_translate in lst_choose:
+                os.system('cls')
+                select.select_action(text_translate)
+            else:
+                print('\033[34m' + write_to.dic_to_file(text, text_translate))
+                select.select_action("1")
     @staticmethod
     def choose():
 
         print("введите еще раз правильное слово:  -> ", end="")
         right_word = input().lower().strip()
+        while right_word =="":
+            print("введите еще раз правильное слово:  -> ", end="")
+            right_word = input().lower().strip()
         text = right_word
         read = openfile.OpenFile()
         dic = read.opening_json('dictionary.json')
