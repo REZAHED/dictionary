@@ -1,3 +1,4 @@
+import os
 
 from colors import fg,bg,style
 
@@ -29,11 +30,11 @@ class Menus:
             text = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
             while text.isdigit() and text not in lst_choose:
                 text = input('\033[32m' + '\033[1m' + "введите правильный номер:-> ").lower().strip()
-            # os.system('cls')
+            os.system('cls')
 
             return text
 
-        # os.system('cls')
+        os.system('cls')
         return value
 
 
