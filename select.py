@@ -4,8 +4,7 @@ from tabulate import tabulate
 import colors
 import menu
 import openfile
-import write_to_file
-from cheking import Cheking
+import cheking
 from colors import fg, style
 
 
@@ -59,14 +58,14 @@ def select_action(value, arg=''):
 
             read = openfile.OpenFile()
             dic_ = read.opening_json('dictionary.json')
-            Cheking.checking(dic_, text)
+            cheking.Cheking.checking(dic_, text)
 
             select_action("1")
         elif text.replace(" ", "").replace("-", "").isalpha() and os.path.getsize('dictionary.json') == 0:
-            read = openfile.OpenFile()
-            dic_ = read.opening_json('dictionary.json')
+            # read = openfile.OpenFile()
+            # dic_ = read.opening_json('dictionary.json')
 
-            Cheking.checking(None, text)
+            cheking.Cheking.checking(None, text)
         elif text == "2":
             os.system('cls')
             value = text
