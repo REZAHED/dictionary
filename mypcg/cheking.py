@@ -2,6 +2,7 @@ import os
 
 import colors
 import openfile
+import test
 import write_to_file
 from mypcg import select
 
@@ -42,9 +43,9 @@ class Cheking:
         if dic is not None and text in dic.keys():
 
             os.system('cls')
-            if text.lower() not in lst:
-                print('+++ это слово есть в вашем словаре\nно мы не нашли его в словаре русского языка')
-                print("+--проверьте, может вы неправильно написали--+")
+            # if text.lower() not in lst:
+            #     print('+++ это слово есть в вашем словаре\nно мы не нашли его в словаре русского языка')
+            #     print("+--проверьте, может вы неправильно написали--+")
 
             print('\n' + f'перевод слово на русский: -> ' + '\033[31m' + '\033[1m' + dic[text])
 
@@ -62,12 +63,12 @@ class Cheking:
 
                 lst_choose = ['1', '3', '2', '0']
                 write_to = write_to_file.Write_To_File()
-                print("из словаря ")
+
                 print('\033[32m' + '\033[1m' + "Данное слово не найдено!! ")
                 print("\nВведите его значение \n для записи в словарь: -> ", end="")
                 text_translate = input().lower().strip()
                 while not text_translate.replace(" ", '').isalpha() and text_translate not in lst_choose:
-                    print("Введите правильное значение: -> ", end="")
+                    print("Введите правильное значение или :\n выберите [1][2][3][0] -> ", end="")
                     text_translate = input().lower().strip()
                     os.system('cls')
                 if text_translate in lst_choose:
@@ -80,8 +81,11 @@ class Cheking:
 
 
                 write_to = write_to_file.Write_To_File()
-                print('\033[32m' + '\033[1m' + "Данное слово не найдено!! ")
-                print("вы правильно написали? \n [+]ДА  [-]НЕТ :  -> ", end="")
+                print("этого слова нет в словаре русского языка")
+                print('предложения :')
+                print(test.suggest(text,lst))
+                # print('\033[32m' + '\033[1m' + "Данное слово не найдено!! ")
+                print("вы правильно написали? \n[+]ДА  [-]НЕТ :  -> ", end="")
 
                 check = input().lower().strip()
 

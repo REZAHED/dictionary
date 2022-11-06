@@ -140,8 +140,8 @@ def select_action(value, arg=''):
                 print(arg)
 
             text = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
-            while text == "":
-                text = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
+            while text == "" or text.isalpha():
+                text = input('\033[32m' + '\033[1m' + "введите правилное значение\n[\][/][0] ::-> ").lower().strip()
 
             if text == '\\' or text == '/' or text == '0':
                 os.system('cls')
@@ -248,7 +248,7 @@ def select_action(value, arg=''):
         print("""
          ___ ДО СВИДАНИЯ___
                         """)
-        input("enter to exit")
+        # input("enter to exit")
         exit()
     return text
 
