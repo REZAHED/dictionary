@@ -4,7 +4,7 @@ import colors
 import openfile
 import write_to_file
 from mypcg import select, test
-
+lst = []
 
 class Cheking:
 
@@ -45,19 +45,21 @@ class Cheking:
                     print('\n' + f'перевод слово на английский: -> ' + '\033[31m' + '\033[1m' + i)
 
         elif dic is not None and text not in dic.keys() and text not in dic.values():
-            lst = []
+            if not lst:
+                print(lst)
 
-            with open('slov_russ_dic.txt', 'r', encoding='utf-8') as file:
-                lines = [line.split("\n") for line in file]
 
-            for i in lines:
+                with open('slov_russ_dic.txt', 'r', encoding='utf-8') as file:
+                    lines = [line.split("\n") for line in file]
 
-                if i[0]:
-                    lst.append(i[0].lower())
+                for i in lines:
+
+                    if i[0]:
+                        lst.append(i[0].lower())
 
             # print(lst)
             lst_to_set = set(lst)
-            if text.lower() in lst_to_set:
+            if text.lower() in lst:
 
                 lst_choose = ['1', '3', '2', '0']
                 write_to = write_to_file.Write_To_File()

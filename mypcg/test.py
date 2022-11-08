@@ -15,6 +15,7 @@ def suggest(text, lst):
     c = 0
 
     new_lst = []
+    new_lst.clear()
 
     for i in lst:
         if 8 <= len(text) <= len(i) < 11:
