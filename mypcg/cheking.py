@@ -29,13 +29,56 @@ class Cheking:
         #     select.select_action("1")
 
         if dic is not None and text in dic.keys():
-
+            alpha_en = 'abcdefghijklmnopqrstuvwxyz'
+            alpha_farsi= 'ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی'
             os.system('cls')
             # if text.lower() not in lst:
             #     print('+++ это слово есть в вашем словаре\nно мы не нашли его в словаре русского языка')
             #     print("+--проверьте, может вы неправильно написали--+")
+            c=0
+            alph_text=''
+            for i in alpha_en:
+                if i in dic[text]:
+                    c +=1
+            if c >=1:
+                alph_text='Английский'
+                c=0
+            else:
+                c=0
+                for i in alpha_farsi:
+                    if i in dic[text]:
+                        c += 1
+                if c >= 1:
+                    alph_text = 'Персидский'
+                    c = 0
+                else:
+                    c = 0
+                    alph_text = "Русский"
+            print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + dic[text])
 
-            print('\n' + f'перевод слово на русский: -> ' + '\033[31m' + '\033[1m' + dic[text])
+
+
+
+            for i, j in dic.items():
+                if j == dic[text] and i != text:
+                    for e in alpha_en:
+                        if e in i:
+                            c += 1
+                    if c >= 1:
+                        alph_text = 'Английский'
+                        c = 0
+                    else:
+                        c = 0
+                        for e in alpha_farsi:
+                            if e in i:
+                                c += 1
+                        if c >= 1:
+                            alph_text = 'Персидский'
+                            c = 0
+                        else:
+                            c = 0
+                            alph_text = "Русский"
+                    print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + i)
 
         elif dic is not None and text in dic.values():
 
