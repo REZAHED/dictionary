@@ -1,4 +1,5 @@
 import json
+import sys
 import os
 from tabulate import tabulate
 import colors
@@ -6,6 +7,8 @@ import menu
 import openfile
 from mypcg import cheking
 from colors import fg, style
+
+text = ""
 
 
 def select_action(value, arg=''):
@@ -81,9 +84,6 @@ def select_action(value, arg=''):
             value = text
             select_action(value)
 
-
-
-
     elif value == '2':
 
         os.system('cls')
@@ -95,11 +95,11 @@ def select_action(value, arg=''):
             dic_ = read.opening_json('dictionary.json')
 
             c = 1
-            m = 1
-            d = 1
-            head = ["№", "Слово", "Перевод"]
+            # m = 1
+            # d = 1
+            # head = ["№", "Слово", "Перевод"]
             lst_dic = []
-            lst_copy = []
+            # lst_copy = []
             lst_dicbig = []
             # for i in range(len(dic_)):
 
@@ -132,7 +132,7 @@ def select_action(value, arg=''):
                   f"+------выберите номер слова------+")
             print("""
             
-[\] поиск в словаре
+[\\] поиск в словаре
 [/] меню
 [0] выход
                                 """)
@@ -141,7 +141,7 @@ def select_action(value, arg=''):
 
             text = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
             while text == "" or text.isalpha():
-                text = input('\033[32m' + '\033[1m' + "введите правилное значение\n[\][/][0] ::-> ").lower().strip()
+                text = input('\033[32m' + '\033[1m' + "введите правилное значение\n[\\][/][0] ::-> ").lower().strip()
 
             if text == '\\' or text == '/' or text == '0':
                 os.system('cls')
@@ -154,19 +154,29 @@ def select_action(value, arg=''):
                             print(f'[2] изменить {i[2].upper()}')
 
                             print(
-                                style.RESET_ALL + fg.YELLOW + f'[3] удалить запись #{text}.  {i[1]}'.upper() + f' : {i[2].upper()}')
+                                style.RESET_ALL + fg.YELLOW + f'[3] удалить запись'
+                                                              f' #{text}.  {i[1]}'.upper() + f' : {i[2].upper()}')
                             text = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
                             while text == "":
                                 text = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
                             if text == '1':
 
                                 new_word = input('\033[32m' + '\033[1m' + "введите новый вариант:-> ").lower().strip()
-                                while new_word == "":
+
+                                while new_word == "" and new_word not in lst_choose:
                                     new_word = input(
                                         '\033[32m' + '\033[1m' + "введите новый вариант:-> ").lower().strip()
                                 if new_word in lst_choose:
                                     select_action(new_word)
-                                del dic_[i[1]]
+                                for word in lst_dicbig:
+
+                                    if new_word == word[1]:
+                                        select_action("2", f" слово {new_word.upper()} уже"
+                                                           f" существует в словаре со значением {word[2].upper()}")
+                                        break
+
+                                else:
+                                    del dic_[i[1]]
 
                                 dic_.update({new_word: i[2]})
                                 with open('dictionary.json', 'w+', encoding='utf-8-sig') as file:
@@ -174,7 +184,6 @@ def select_action(value, arg=''):
                                     os.system('cls')
                                 # print(f'Слово --{i[1]}-- и его значение --{i[2]}-- успешно удалены.')
                                 select_action("2", f'запись  {i[1]}'.upper() + f' изменена на {new_word.upper()}')
-
 
                             elif text == '2':
 
@@ -186,8 +195,6 @@ def select_action(value, arg=''):
                                     os.system('cls')
                                 # print(f'Слово --{i[1]}-- и его значение --{i[2]}-- успешно удалены.')
                                 select_action("2", f'запись  {i[2]}'.upper() + f' изменена на {new_word.upper()}')
-
-
 
                             elif text == '3':
                                 del dic_[i[1]]
@@ -208,8 +215,6 @@ def select_action(value, arg=''):
 
             # else:
             #     select_action(text)
-
-
         elif os.path.exists('dictionary.json') and os.path.getsize('dictionary.json') == 0:
             print("Словарь пустой. выбирайте  [1]\n и создайте словарь")
             text = input('\033[32m' + '\033[1m' + "ваш выбор::-> " + colors.style.RESET_ALL).lower().strip()
@@ -225,7 +230,7 @@ def select_action(value, arg=''):
 
     elif value == '4':
         os.system('cls')
-        lst_choose = ['1', '2', '3', '0']
+        # lst_choose = ['1', '2', '3', '0']
         print("здесь вы можете изменить/удалить слова")
 
         select_action("2")
@@ -241,18 +246,12 @@ def select_action(value, arg=''):
 [3] меню
 [0] выход
                 """)
-
-
-
     elif value == '0':
         print("""
          ___ ДО СВИДАНИЯ___
                         """)
         # input("enter to exit")
-        exit()
+        sys.exit()
     return text
 
-
 # a=menu.Menus.show_menu()
-
-
