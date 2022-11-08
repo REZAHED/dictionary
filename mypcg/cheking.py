@@ -45,6 +45,7 @@ class Cheking:
                     print('\n' + f'перевод слово на английский: -> ' + '\033[31m' + '\033[1m' + i)
 
         elif dic is not None and text not in dic.keys() and text not in dic.values():
+
             lst = []
 
 
@@ -54,7 +55,7 @@ class Cheking:
 
                 with open('slov_russ_dic.txt', 'r', encoding='utf-8') as file:
                     lines = [line.split("\n") for line in file]
-
+                file.close()
                 for i in lines:
 
                     if i[0]:
@@ -87,6 +88,7 @@ class Cheking:
                 print("этого слова нет в словаре русского языка")
 
                 suggest_lst = list(test.suggest(text, lst))
+                lst.clear()
                 if suggest_lst:
                     print(colors.fg.YELLOW + 'предложения :', end="")
                     # c = 0
@@ -99,6 +101,7 @@ class Cheking:
                         #     print(suggest_lst[i])
                         #     suggest_lst.pop(i)
                         print(f' {i + 1}.{suggest_lst[i]}', end='' + colors.style.RESET_ALL)
+                        suggest_lst.clear()
                         # if i == 9:
                         #     break
                 else:
