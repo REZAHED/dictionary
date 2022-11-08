@@ -18,6 +18,7 @@ def select_action(value, arg=''):
         value = input('\033[32m' + '\033[1m' + "введите правильный номер:-> ").lower().strip()
 
     if value == '1' or value == '\\':
+
         lst_choose = ['1', '2', '3', '0']
 
         print("""

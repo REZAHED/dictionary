@@ -46,25 +46,26 @@ class Cheking:
 
         elif dic is not None and text not in dic.keys() and text not in dic.values():
 
-            lst = []
-
-
-            if not lst:
+            # lst = []
+            #
+            #
+            # if not lst:
                 # print(lst)
 
 
-                with open('slov_russ_dic.txt', 'r', encoding='utf-8') as file:
-                    lines = [line.split("\n") for line in file]
-                file.close()
-                for i in lines:
-
-                    if i[0]:
-                        lst.append(i[0].lower())
+            with open('slov_russ_dic.txt', 'r', encoding='utf-8') as file:
+                lines = [line.replace("\n","").lower() for line in file]
+            file.close()
+                # print(lines)
+                # for i in lines:
+                #
+                #     if i[0]:
+                #         lst.append(i[0].lower())
 
             # print(lst)
-            lines.clear()
-            lst_to_set = set(lst)
-            if text.lower() in lst:
+            # lines.clear()
+            # lst_to_set = set(lst)
+            if text.lower() in lines:
 
                 lst_choose = ['1', '3', '2', '0']
                 write_to = write_to_file.Write_To_File()
@@ -87,8 +88,8 @@ class Cheking:
                 write_to = write_to_file.Write_To_File()
                 print("этого слова нет в словаре русского языка")
 
-                suggest_lst = list(test.suggest(text, lst))
-                lst.clear()
+                suggest_lst = list(test.suggest(text, lines))
+                lines.clear()
                 if suggest_lst:
                     print(colors.fg.YELLOW + 'предложения :', end="")
                     # c = 0
@@ -101,10 +102,11 @@ class Cheking:
                         #     print(suggest_lst[i])
                         #     suggest_lst.pop(i)
                         print(f' {i + 1}.{suggest_lst[i]}', end='' + colors.style.RESET_ALL)
-                        suggest_lst.clear()
+
                         # if i == 9:
                         #     break
                 else:
+                    suggest_lst.clear()
                     print(colors.fg.RED + "Данное слово не найдено!! ")
                 print("\nвы правильно написали? \n[+]ДА  [-]НЕТ :  -> ", end="")
 
