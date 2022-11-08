@@ -2,6 +2,7 @@ import os
 from mypcg import select
 import menu
 
+
 # os.system('mode con: cols=60 lines=10')
 
 os.system('color')

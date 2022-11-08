@@ -4,7 +4,7 @@ import colors
 import openfile
 import write_to_file
 from mypcg import select, test
-lst = []
+
 
 class Cheking:
 
@@ -45,8 +45,11 @@ class Cheking:
                     print('\n' + f'перевод слово на английский: -> ' + '\033[31m' + '\033[1m' + i)
 
         elif dic is not None and text not in dic.keys() and text not in dic.values():
+            lst = []
+
+
             if not lst:
-                print(lst)
+                # print(lst)
 
 
                 with open('slov_russ_dic.txt', 'r', encoding='utf-8') as file:
@@ -58,6 +61,7 @@ class Cheking:
                         lst.append(i[0].lower())
 
             # print(lst)
+            lines.clear()
             lst_to_set = set(lst)
             if text.lower() in lst:
 
@@ -85,10 +89,18 @@ class Cheking:
                 suggest_lst = list(test.suggest(text, lst))
                 if suggest_lst:
                     print(colors.fg.YELLOW + 'предложения :', end="")
+                    # c = 0
                     for i in range(len(suggest_lst)):
+                        # for j in list(text):
+                        #     if j in suggest_lst[i]:
+                        #          c+=1
+                        # if c== len(text) or c == len(text)-1 and len(text) == len(suggest_lst[i]) \
+                        #         or len(text) == len(suggest_lst[i]) + 1 :
+                        #     print(suggest_lst[i])
+                        #     suggest_lst.pop(i)
                         print(f' {i + 1}.{suggest_lst[i]}', end='' + colors.style.RESET_ALL)
-                        if i == 9:
-                            break
+                        # if i == 9:
+                        #     break
                 else:
                     print(colors.fg.RED + "Данное слово не найдено!! ")
                 print("\nвы правильно написали? \n[+]ДА  [-]НЕТ :  -> ", end="")
