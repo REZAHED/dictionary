@@ -88,7 +88,7 @@ class Cheking:
                 write_to = write_to_file.Write_To_File()
                 print("этого слова нет в словаре русского языка")
 
-                suggest_lst = list(test.suggest(text, lines))
+                suggest_lst = (test.suggest(text, lines))
                 lines.clear()
                 if suggest_lst:
                     print(colors.fg.YELLOW + 'предложения :', end="")
@@ -96,15 +96,21 @@ class Cheking:
                     for i in range(len(suggest_lst)):
                         # for j in list(text):
                         #     if j in suggest_lst[i]:
-                        #          c+=1
-                        # if c== len(text) or c == len(text)-1 and len(text) == len(suggest_lst[i]) \
+                        #         c+=1
+                        # if c== len(text)  :
+
                         #         or len(text) == len(suggest_lst[i]) + 1 :
+                        #     c=0
                         #     print(suggest_lst[i])
+                        #     print(list(text))
+                        # else:
+                        #     c=0
                         #     suggest_lst.pop(i)
                         print(f' {i + 1}.{suggest_lst[i]}', end='' + colors.style.RESET_ALL)
 
-                        # if i == 9:
-                        #     break
+                        if i == 9:
+                            break
+
                 else:
                     suggest_lst.clear()
                     print(colors.fg.RED + "Данное слово не найдено!! ")

@@ -1,5 +1,8 @@
 # lst = []
-
+# lst_suggest=[]
+# def add_to_lst(value):
+#     for i in lst_suggest:
+#         if value not  in
 
 def suggest(text, lst):
     # with open('slov_russ_dic.txt', 'r', encoding='utf-8') as file:
@@ -27,13 +30,15 @@ def suggest(text, lst):
                     and text[2] == i[2] and text[3] == i[3] and text[4] == i[4] \
                     and text[5] == i[5]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
             elif (c == len(text) or c == len(text) - 1 or c == len(text) - 2) \
                     and text[1] == i[1] \
                     and text[2] == i[2] and text[3] == i[3] and text[4] == i[4] \
                     and text[5] == i[6] and text[6] == i[6]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
 
             else:
                 c = 0
@@ -47,20 +52,23 @@ def suggest(text, lst):
                     and text[2] == i[2] and text[3] == i[3] and text[4] == i[4] \
                     and text[5] == i[5]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
             elif (c == len(text) or c == len(text) - 1 or c == len(text) - 2) \
                     and text[1] == i[1] \
                     and text[2] == i[2] and text[3] == i[3] and text[4] == i[4] \
                     and text[5] == i[5] and text[6] == i[6]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
 
             elif (c == len(text) or c == len(text) - 1) \
                     and text[0] == i[0] \
                     and text[2] == i[2] and text[3] == i[3] and text[4] == i[4] \
                     and text[5] == i[5] and text[6] == i[6]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
 
             else:
                 c = 0
@@ -68,11 +76,20 @@ def suggest(text, lst):
             for j in list(text):
                 if j in i:
                     c += 1
-            if (c == len(text) or c == len(text) - 1) \
+            if (c == len(text) or c == len(text) - 1) and len(i)==len(text) \
                     and text[0] == i[0] and text[1] == i[1] \
                     and text[2] == i[2] and text[3] == i[3]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
+
+            if (c == len(text) or c == len(text) - 1) and len(i)==len(text)+1 \
+                    and text[0] == i[0] and text[1] == i[1] \
+                    and text[2] == i[2] and text[3] == i[3]:
+                c = 0
+                if i not in new_lst:
+                    new_lst.append(i)
+
             elif (c == len(text) or c == len(text) - 1) \
                     and text[0] == i[0] \
                     and text[2] == i[2] and text[3] == i[3]:
@@ -82,24 +99,28 @@ def suggest(text, lst):
                     and text[1] == i[1] \
                     and text[2] == i[2] and text[3] == i[3] and text[4] == i[4]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
             elif (c == len(text) or c == len(text) - 1) \
                     and text[0] == i[0] \
                     and text[1] == i[1] and text[3] == i[3] and text[4] == i[4]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
 
-            elif (c == len(text) or c == len(text) - 1 or c == len(text) - 2) \
+            elif c == len(text) or c == (len(text) - 1) or c == (len(text) - 2) \
                     and text[0] == i[0] and text[1] == i[1] \
                     and text[2] == i[2] and text[4] == i[4]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
 
             elif (c == len(text) or c == len(text) - 1) \
                     and text[0] == i[0] and text[1] == i[1] \
                     and text[-1] == i[-1]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
 
             else:
                 c = 0
@@ -110,23 +131,28 @@ def suggest(text, lst):
             if (c == len(text) or c == len(text) - 1) \
                     and text[0] == i[0] and text[1] == i[1]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
             elif (c == len(text) or c == len(text) - 1) \
                     and text[1] == i[1] and text[2] == i[2]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
             elif (c == len(text) or c == len(text) - 1) \
                     and text[0] == i[0] and text[2] == i[2]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
             elif (c == len(text) or c == len(text) - 1) \
                     and text[0] == i[0] and text[1] == i[1] and text[2] == i[2]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
             elif (c == len(text) or c == len(text) - 1) \
                     and text[0] == i[0] and text[1] == i[1] and text[2] == i[2]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
             else:
                 c = 0
         elif 3 <= len(text) == len(i) - 1:
@@ -136,11 +162,13 @@ def suggest(text, lst):
             if c == len(text) \
                     and text[0] == i[0] and text[1] == i[1]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
             elif c == len(text) \
                     and text[1] == i[1] and text[2] == i[2]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
             else:
                 c = 0
 
@@ -151,7 +179,8 @@ def suggest(text, lst):
             if c == len(text) - 1 \
                     and text[0] == i[0] and text[1] == i[1]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
             else:
                 c = 0
 
@@ -162,7 +191,8 @@ def suggest(text, lst):
             if (c == len(text) or c == len(text) - 1) \
                     and text[0] == i[0]:
                 c = 0
-                new_lst.append(i)
+                if i not in new_lst:
+                    new_lst.append(i)
             else:
                 c = 0
-    return set(new_lst)
+    return new_lst

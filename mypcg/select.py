@@ -180,6 +180,7 @@ def select_action(value, arg=''):
                                     del dic_[i[1]]
 
                                 dic_.update({new_word: i[2]})
+                                lst_dicbig.clear()
                                 with open('dictionary.json', 'w+', encoding='utf-8-sig') as file:
                                     json.dump(dic_, file, indent=2, ensure_ascii=False)
                                     os.system('cls')
