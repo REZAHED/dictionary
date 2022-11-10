@@ -81,11 +81,30 @@ class Cheking:
                     print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + i)
 
         elif dic is not None and text in dic.values():
-
+            alpha_en = 'abcdefghijklmnopqrstuvwxyz'
+            alpha_farsi = 'ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی'
+            c=0
             os.system('cls')
             for i, j in dic.items():
                 if j == text:
-                    print('\n' + f'перевод слово на английский: -> ' + '\033[31m' + '\033[1m' + i)
+                    for e in alpha_en:
+                        if e in i:
+                            c += 1
+                    if c >= 1:
+                        alph_text = 'Английский'
+                        c = 0
+                    else:
+                        c = 0
+                        for e in alpha_farsi:
+                            if e in i:
+                                c += 1
+                        if c >= 1:
+                            alph_text = 'Персидский'
+                            c = 0
+                        else:
+                            c = 0
+                            alph_text = "Русский"
+                    print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + i)
 
         elif dic is not None and text not in dic.keys() and text not in dic.values():
 
@@ -131,10 +150,12 @@ class Cheking:
                 write_to = write_to_file.Write_To_File()
                 print("этого слова нет в словаре русского языка")
 
-                suggest_lst = (test.suggest(text, lines))
+                suggest_lst =test.suggest(text,lines)
+
                 lines.clear()
                 if suggest_lst:
                     print(colors.fg.YELLOW + 'предложения :', end="")
+
                     # c = 0
                     for i in range(len(suggest_lst)):
                         # for j in list(text):

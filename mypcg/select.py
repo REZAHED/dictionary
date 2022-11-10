@@ -13,7 +13,7 @@ text = ""
 
 def select_action(value, arg=''):
     global text
-    lst = ['1', '2', '0', '3', '4', '\\', '/', '%']
+    lst = ['1', '2', '0', '3', '4', '\\', '/', '%',"-"]
     while value not in lst:
         value = input('\033[32m' + '\033[1m' + "введите правильный номер:-> ").lower().strip()
 
@@ -58,11 +58,16 @@ def select_action(value, arg=''):
             value = "1"
 
             select_action(value)
+        elif not text.replace(" ", "").replace("-", "").isalpha() \
+                and text.replace(" ", "").replace("-", "") not in lst_choose:
+            print("введите правильно")
+            select_action("1")
         elif text.replace(" ", "").replace("-", "").isalpha() and os.path.getsize('dictionary.json') != 0:
 
             read = openfile.OpenFile()
             dic_ = read.opening_json('dictionary.json')
             cheking.Cheking.checking(dic_, text)
+
 
             select_action("1")
         elif text.replace(" ", "").replace("-", "").isalpha() and os.path.getsize('dictionary.json') == 0:
@@ -70,6 +75,11 @@ def select_action(value, arg=''):
             # dic_ = read.opening_json('dictionary.json')
 
             cheking.Cheking.checking(None, text)
+
+
+
+
+            select_action("1")
         elif text == "2":
             os.system('cls')
             value = text
@@ -135,6 +145,7 @@ def select_action(value, arg=''):
             
 [\\] поиск в словаре
 [/] меню
+[-] удалить словарь
 [0] выход
                                 """)
             if arg:
@@ -147,6 +158,20 @@ def select_action(value, arg=''):
             if text == '\\' or text == '/' or text == '0':
                 os.system('cls')
                 select_action(text)
+            elif text =="-":
+                print("вы действительно хотите удалить словарь?\n"
+                      "[да][нет] ваш выбор ->" ,end="")
+
+                delete_dic = input()
+                if delete_dic.lower() == "да":
+                    dic_.clear()
+                    with open('dictionary.json', 'w+', encoding='utf-8-sig') as file:
+                        json.dump(dic_, file, indent=2, ensure_ascii=False)
+                        os.system('cls')
+                    # print(f'Слово --{i[1]}-- и его значение --{i[2]}-- успешно удалены.')
+                    select_action("2", f'Словарь успешно удален')
+
+
             elif text.isdigit():
                 if int(text) <= len(dic_):
                     for i in lst_dicbig:

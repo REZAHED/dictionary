@@ -28,7 +28,7 @@ class Menus:
 """)
         if not value:
             text = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
-            while text.isdigit() and text not in lst_choose:
+            while text not in lst_choose:
                 text = input('\033[32m' + '\033[1m' + "введите правильный номер:-> ").lower().strip()
             os.system('cls')
 
