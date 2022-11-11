@@ -1,9 +1,13 @@
 import os
 
 import colors
+import fonts
 import openfile
 import write_to_file
 from mypcg import select, test
+import arabic_reshaper
+from bidi.algorithm import get_display
+from arabic_reshaper import ArabicReshaper
 
 
 class Cheking:
@@ -30,21 +34,21 @@ class Cheking:
 
         if dic is not None and text in dic.keys():
             alpha_en = 'abcdefghijklmnopqrstuvwxyz'
-            alpha_farsi= 'ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی'
+            alpha_farsi = 'ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی'
             os.system('cls')
             # if text.lower() not in lst:
             #     print('+++ это слово есть в вашем словаре\nно мы не нашли его в словаре русского языка')
             #     print("+--проверьте, может вы неправильно написали--+")
-            c=0
-            alph_text=''
+            c = 0
+            alph_text = ''
             for i in alpha_en:
                 if i in dic[text]:
-                    c +=1
-            if c >=1:
-                alph_text='Английский'
-                c=0
+                    c += 1
+            if c >= 1:
+                alph_text = 'Английский'
+                c = 0
             else:
-                c=0
+                c = 0
                 for i in alpha_farsi:
                     if i in dic[text]:
                         c += 1
@@ -54,7 +58,19 @@ class Cheking:
                 else:
                     c = 0
                     alph_text = "Русский"
-            print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + dic[text])
+            #-----------чтобы можно было фарси писать и ситать в cmd
+            #-------------------------------------------------------
+            reshaped = arabic_reshaper.reshape(dic[text])
+            bidi_tex = get_display(reshaped)
+            #______________________________________________
+
+            print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + bidi_tex)
+
+
+
+
+
+            # print(reshaped_text[::-1])
 
 
 
@@ -83,7 +99,7 @@ class Cheking:
         elif dic is not None and text in dic.values():
             alpha_en = 'abcdefghijklmnopqrstuvwxyz'
             alpha_farsi = 'ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی'
-            c=0
+            c = 0
             os.system('cls')
             for i, j in dic.items():
                 if j == text:
@@ -104,7 +120,9 @@ class Cheking:
                         else:
                             c = 0
                             alph_text = "Русский"
-                    print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + i)
+                    reshaped = arabic_reshaper.reshape(i)
+                    bidi_tex = get_display(reshaped)
+                    print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + bidi_tex)
 
         elif dic is not None and text not in dic.keys() and text not in dic.values():
 
@@ -112,17 +130,25 @@ class Cheking:
             #
             #
             # if not lst:
-                # print(lst)
-
+            # print(lst)
 
             with open('slov_russ_dic.txt', 'r', encoding='utf-8') as file:
-                lines = [line.replace("\n","").lower() for line in file]
-            file.close()
-                # print(lines)
-                # for i in lines:
-                #
-                #     if i[0]:
-                #         lst.append(i[0].lower())
+                if len(text) == 1:
+                    lines = {line.rstrip() for line in file.readlines() if len(line.rstrip()) == 1}
+
+                elif len(text) == 2:
+                    lines = {line.rstrip() for line in file.readlines() if len(line.rstrip()) == 2}
+                elif len(text) >= 3:
+                    lines ={line.rstrip() for line in file.readlines()
+                            if len(line.rstrip()) == len(text)+1
+                            or len(line.rstrip())==len(text)}
+
+
+            # print(lines)
+            # for i in lines:
+            #
+            #     if i[0]:
+            #         lst.append(i[0].lower())
 
             # print(lst)
             # lines.clear()
@@ -150,9 +176,10 @@ class Cheking:
                 write_to = write_to_file.Write_To_File()
                 print("этого слова нет в словаре русского языка")
 
-                suggest_lst =test.suggest(text,lines)
+                suggest_lst = test.suggest(text, lines)
 
                 lines.clear()
+
                 if suggest_lst:
                     print(colors.fg.YELLOW + 'предложения :', end="")
 

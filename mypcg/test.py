@@ -4,7 +4,6 @@
 #     for i in lst_suggest:
 #         if value not  in
 from fuzzywuzzy import process
-import Levenshtein
 
 
 def suggest(text, lst):
@@ -21,21 +20,33 @@ def suggest(text, lst):
     #                    .replace(":", "").replace("ё","е"))
     # text = input("введите: ").lower().strip()
 
+    global ratio
     c = 0
 
     new_lst = []
     new_lst_choose=[]
 
+    # for i in lst:
+    #     if len(text) == len(i) :
+    #         for j in list(text):
+    #             if j in i:
+    #                 c += 1
+    #         if c == len(text) or c == len(text) - 1:
+    #             c = 0
+    #
+    #             new_lst.append(i)
     for i in lst:
-        if len(i) == len(text) or len(i) == len(text) + 1:
+        if len(i) == len(text) :
             new_lst_choose.append(i)
-    Ratio = process.extract(text, new_lst_choose)
-    for e in Ratio:
-        if e[0][0] == text[0] or e[0][1] ==text[1]:
+
+    ratio = process.extract(text, lst, limit=20)
+    for e in ratio:
+        if e[1] > 50 and e[0][0] == text[0] and e[0][0] not in new_lst :
             new_lst.append(e[0])
-    for e in Ratio:
-        if e[0] not in new_lst:
+    for e in ratio:
+        if e[1] > 50 and e[0] not in new_lst:
             new_lst.append(e[0])
+    # new_lst_choose.clear()
 
     last_lst =[]
     # new_lst.clear()

@@ -1,16 +1,22 @@
 from fuzzywuzzy import process
-import Levenshtein
-lst = ["котенок", "цап", "пацр",'царь','а','пацан']
-text = 'цар'
+
+lst = ["котенок", "цап", "пацр",'царь','а','пацан','пайка', 'пока','пачка','палка','папка','парк','паек','паша','паук']
+text = 'search'
 lst2=[]
 
 for i in lst:
-    if len(i) == len(text) or len(i) == len(text)+1:
+    if len(i) == len(text) or len(i) == len(text) +1:
         lst2.append(i)
 
-Ratio = process.extract(text,lst2)
-for e in Ratio:
+Ratio = process.extractOne(text,lst2)
+print(Ratio[0])
+print(Ratio[1])
+
+Ratio2 = process.extract(text,lst2)
+for e in Ratio2:
     print(e[0])
+    print(e[1])
+
 
 
 
