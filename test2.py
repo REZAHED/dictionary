@@ -17,6 +17,10 @@ for e in Ratio2:
     print(e[0])
     print(e[1])
 
+new = "-"
+if new.isspace():
+    print("yes")
+
 
 
 

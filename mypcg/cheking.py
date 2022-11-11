@@ -32,6 +32,7 @@ class Cheking:
         #     print('\033[34m' + write_to.dic_to_file(text, text_translate))
         #     select.select_action("1")
 
+        # global sugg_text
         if dic is not None and text in dic.keys():
             alpha_en = 'abcdefghijklmnopqrstuvwxyz'
             alpha_farsi = 'ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی'
@@ -174,12 +175,12 @@ class Cheking:
             else:
 
                 write_to = write_to_file.Write_To_File()
-                print("этого слова нет в словаре русского языка")
+                print("\nэтого слова нет в словаре русского языка\n")
 
                 suggest_lst = test.suggest(text, lines)
 
                 lines.clear()
-
+                # sugg_text = ""
                 if suggest_lst:
                     print(colors.fg.YELLOW + 'предложения :', end="")
 
@@ -197,25 +198,60 @@ class Cheking:
                         # else:
                         #     c=0
                         #     suggest_lst.pop(i)
-                        print(f' {i + 1}.{suggest_lst[i]}', end='' + colors.style.RESET_ALL)
+                        print(f' {i + 4}.{suggest_lst[i]}', end='' + colors.style.RESET_ALL)
 
+                        # sugg_text +=f' {i + 4}.{suggest_lst[i]} '
+
+                        if i == 4:
+                            print('\n',end="")
                         if i == 9:
+                            print("\n")
                             break
-
+                    # suggest_lst.clear()
+                    # print(sugg_text)
                 else:
-                    suggest_lst.clear()
+                    # suggest_lst.clear()
                     print(colors.fg.RED + "Данное слово не найдено!! ")
-                print("\nвы правильно написали? \n[+]ДА  [-]НЕТ :  -> ", end="")
+                print("\nвы правильно написали? выберите [+]ДА , [-]НЕТ \nили введите номер из предложений -> : ", end="")
 
                 check = input().lower().strip()
 
                 check_lst = ["+", "-"]
                 lst_choose = ['1', '3', '2', '0']
+                lst_choose_text = []
+
+                for i in range(len(suggest_lst)):
+                    if i == 10:
+                        break
+                    else:
+                        lst_choose_text.append(str(i+4))
                 # else:
-                while check not in check_lst and check not in lst_choose:
+                while check not in check_lst and check not in lst_choose and check not in lst_choose_text:
                     check = input("введите ' + ' или ' - '   :-> ").lower().strip()
                 if check in lst_choose:
                     select.select_action(check)
+
+                if check in lst_choose_text:
+                    text= suggest_lst[int(check)-4]
+                    print(colors.fg.YELLOW+ f' вы выбрали слово : {text}' + colors.style.RESET_ALL)
+
+
+                    print("\nВведите его значение \nили выберите [1][2][3][0] из меню -> ", end="")
+                    text_translate = input().lower().strip()
+
+
+                    while not text_translate.replace(" ", '').isalpha() and text_translate not in lst_choose:
+                        print("Введите правильное значение: -> ", end="")
+                        text_translate = input().lower().strip()
+                        os.system('cls')
+                    if text_translate in lst_choose:
+                        os.system('cls')
+                        select.select_action(text_translate)
+                    else:
+                        print('\033[34m' + write_to.dic_to_file(text, text_translate))
+                suggest_lst.clear()
+                lst_choose_text.clear()
+
                 if check == '+':
                     print("\nВведите его значение \n для записи в словарь: -> ", end="")
                     text_translate = input().lower().strip()
@@ -246,18 +282,22 @@ class Cheking:
                 select.select_action("1")
 
     @staticmethod
-    def choose():
+    def choose(arg=""):
+
         lst_choose = ['1', '3', '2', '0']
-        print("введите еще раз правильное слово:  -> ", end="")
+        print("введите еще раз правильное слово или \nвыберите [1][2][3][0] ->:  -> ", end="")
         right_word = input().lower().strip()
-        while right_word == "":
+        while not right_word.isalpha() and  right_word not in lst_choose :
             print("введите еще раз правильное слово:  -> ", end="")
             right_word = input().lower().strip()
         if right_word in lst_choose:
             select.select_action(right_word)
+
         text = right_word
         read = openfile.OpenFile()
         dic = read.opening_json('dictionary.json')
+        # os.system("cls")
+        # print(arg)
         Cheking.checking(dic, text)
         # print("yyyyyyyyyyyyyy")
         # print("\nВведите его значение для записи в словарь: -> ", end="")
