@@ -170,7 +170,10 @@ def select_action(value, arg=''):
                         os.system('cls')
                     # print(f'Слово --{i[1]}-- и его значение --{i[2]}-- успешно удалены.')
                     select_action("2", f'Словарь успешно удален')
-
+                elif delete_dic.lower() == "нет":
+                    select_action("2", f'удаление отменено')
+                else:
+                    select_action("2",f'вы не правильно выбрали.\nпопробуйте еще раз')
 
             elif text.isdigit():
                 if int(text) <= len(dic_):

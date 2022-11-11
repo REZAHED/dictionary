@@ -13,7 +13,7 @@ from arabic_reshaper import ArabicReshaper
 class Cheking:
 
     @staticmethod
-    def checking(dic, text):
+    def checking(dic, text,null=0):
 
         # lst_choose = ['1', '3', '2', '0']
         # write_to = write_to_file.Write_To_File()
@@ -125,7 +125,8 @@ class Cheking:
                     bidi_tex = get_display(reshaped)
                     print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + bidi_tex)
 
-        elif dic is not None and text not in dic.keys() and text not in dic.values():
+        elif null == 1 or dic is not None and text not in dic.keys() and text not in dic.values():
+
 
             # lst = []
             #
@@ -182,7 +183,7 @@ class Cheking:
                 lines.clear()
                 # sugg_text = ""
                 if suggest_lst:
-                    print(colors.fg.YELLOW + 'предложения :', end="")
+                    print(colors.fg.RED + 'предложения :', end="")
 
                     # c = 0
                     for i in range(len(suggest_lst)):
@@ -198,7 +199,7 @@ class Cheking:
                         # else:
                         #     c=0
                         #     suggest_lst.pop(i)
-                        print(f' {i + 4}.{suggest_lst[i]}', end='' + colors.style.RESET_ALL)
+                        print(colors.fg.YELLOW + f' {i + 4}.{suggest_lst[i]}', end='' + colors.style.RESET_ALL)
 
                         # sugg_text +=f' {i + 4}.{suggest_lst[i]} '
 
@@ -269,17 +270,42 @@ class Cheking:
                 elif check == "-":
                     Cheking.choose()
         elif dic is None:
-            write_to = write_to_file.Write_To_File()
-            lst_choose = ['1', '3', '2', '0']
-            print(colors.style.RESET_ALL + "\n---Cловарь пустой---")
-            print("\nВведите его значение \nдля записи в словарь: -> ", end="")
-            text_translate = input().lower().strip()
-            if text_translate in lst_choose:
-                os.system('cls')
-                select.select_action(text_translate)
-            else:
-                print('\033[34m' + write_to.dic_to_file(text, text_translate))
-                select.select_action("1")
+
+            Cheking.checking(dic,text,1)
+            # with open('slov_russ_dic.txt', 'r', encoding='utf-8') as file:
+            #     if len(text) == 1:
+            #         lines = {line.rstrip() for line in file.readlines() if len(line.rstrip()) == 1}
+            #
+            #     elif len(text) == 2:
+            #         lines = {line.rstrip() for line in file.readlines() if len(line.rstrip()) == 2}
+            #     elif len(text) >= 3:
+            #         lines ={line.rstrip() for line in file.readlines()
+            #                 if len(line.rstrip()) == len(text)+1
+            #                 or len(line.rstrip())==len(text)}
+            # if text.lower() in lines:
+            #
+            #     lst_choose = ['1', '3', '2', '0']
+            #     write_to = write_to_file.Write_To_File()
+            #
+            #     print('\033[32m' + '\033[1m' + "Данное слово не зписано в словаре!! ")
+            #     print("\nВведите его значение \n для записи в словарь: -> ", end="")
+            #     text_translate = input().lower().strip()
+            #     while not text_translate.replace(" ", '').isalpha() and text_translate not in lst_choose:
+            #         print("Введите правильное значение или :\n выберите [1][2][3][0] -> ", end="")
+            #         text_translate = input().lower().strip()
+            #         os.system('cls')
+
+
+                # lst_choose = ['1', '3', '2', '0']
+                # print(colors.style.RESET_ALL + "\n---Cловарь пустой---")
+                # print("\nВведите его значение \nдля записи в словарь: -> ", end="")
+                # text_translate = input().lower().strip()
+                # if text_translate in lst_choose:
+                #     os.system('cls')
+                #     select.select_action(text_translate)
+                # else:
+                #     print('\033[34m' + write_to.dic_to_file(text, text_translate))
+                #     select.select_action("1")
 
     @staticmethod
     def choose(arg=""):
