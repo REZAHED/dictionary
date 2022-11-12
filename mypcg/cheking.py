@@ -62,10 +62,10 @@ class Cheking:
             #-----------чтобы можно было фарси писать и ситать в cmd
             #-------------------------------------------------------
             reshaped = arabic_reshaper.reshape(dic[text])
-            bidi_tex = get_display(reshaped)
+            bidi_tex1 = get_display(reshaped)
             #______________________________________________
 
-            print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + bidi_tex)
+            print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + bidi_tex1)
 
 
 
@@ -95,7 +95,9 @@ class Cheking:
                         else:
                             c = 0
                             alph_text = "Русский"
-                    print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + i)
+                    reshaped = arabic_reshaper.reshape(i)
+                    bidi_tex2 = get_display(reshaped)
+                    print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + bidi_tex2)
 
         elif dic is not None and text in dic.values():
             alpha_en = 'abcdefghijklmnopqrstuvwxyz'
@@ -122,8 +124,8 @@ class Cheking:
                             c = 0
                             alph_text = "Русский"
                     reshaped = arabic_reshaper.reshape(i)
-                    bidi_tex = get_display(reshaped)
-                    print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + bidi_tex)
+                    bidi_tex3 = get_display(reshaped)
+                    print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + bidi_tex3)
 
         elif null == 1 or dic is not None and text not in dic.keys() and text not in dic.values():
 

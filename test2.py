@@ -1,38 +1,61 @@
-import tkinter as tk
-from tkinter.tix import Tk
-from tkinter.ttk import Label
+lines=[]
+c=0
+d=0
 
-root = Tk()
+while c<50:
+    with open("engwords.txt", 'r', encoding='utf-8') as file:
+        for line in file:
+            c+=1
+            lines.append(file.readline().rstrip())
+            if c == 50:
+                with open(f"newdic{d}.txt", 'w+', encoding='utf-8') as file:
+                    for i in lines:
+                        file.write(i + '\n')
 
-# specify size of window.
-root.geometry("250x170")
+                lines.clear()
+                c=0
+                d+=1
+                #
 
-# Create text widget and specify size.
-T = tk.Text(root, height = 5, width = 52)
 
-# Create label
-l = Label(root, text = "Fact of the Day")
-l.config(font =("Courier", 14))
 
-Fact = """سلام خوبی؟"""
-Faxt_2 ="مرسی خوبم تو چطوری"
-
-# Create button for next text.
-b1 = tk.Button(root, text ="Next", command=lambda:  T.delete(tk.HIDDEN) )
-
-# Create an Exit button.
-b2 = tk.Button(root, text ="Exit",
-               command = root.destroy)
-
-l.pack()
-T.pack()
-b1.pack()
-b2.pack()
-
-# Insert The Fact.
-T.insert(tk.END, Fact)
-
-tk.mainloop()
+# print(len(lines))
+# print(lines)
+# import tkinter as tk
+# from tkinter.tix import Tk
+# from tkinter.ttk import Label
+#
+# root = Tk()
+#
+# # specify size of window.
+# root.geometry("250x170")
+#
+# # Create text widget and specify size.
+# T = tk.Text(root, height = 5, width = 52)
+#
+# # Create label
+# l = Label(root, text = "Fact of the Day")
+# l.config(font =("Courier", 14))
+#
+# Fact = """سلام خوبی؟"""
+# Faxt_2 ="مرسی خوبم تو چطوری"
+#
+# # Create button for next text.
+# b1 = tk.Button(root, text ="Next", command=lambda:  T.delete(tk.HIDDEN) )
+#
+# # Create an Exit button.
+# b2 = tk.Button(root, text ="Exit",
+#                command = root.destroy)
+#
+# l.pack()
+# T.pack()
+# b1.pack()
+# b2.pack()
+#
+# # Insert The Fact.
+# T.insert(tk.END, Fact)
+#
+# tk.mainloop()
 
 
 # from fuzzywuzzy import process
