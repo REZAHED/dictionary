@@ -202,7 +202,7 @@ class Cheking:
                         select.select_action(text_translate)
                     else:
                         lst_record = [[write_to.dic_to_file(text, text_translate)]]
-                        print(colors.style.RESET_ALL + colors.fg.CYAN
+                        print(colors.style.RESET_ALL + colors.fg.RED
                               + tabulate(lst_record, tablefmt="grid", ) + colors.style.RESET_ALL + '\n')
                         # print('\033[34m' + write_to.dic_to_file(text, text_translate))
                         select.select_action("1")
@@ -288,7 +288,7 @@ class Cheking:
 
                             # print('\033[34m' + write_to.dic_to_file(text, text_translate))
                             lst_record = [[write_to.dic_to_file(text, text_translate)]]
-                            print(colors.style.RESET_ALL + colors.fg.CYAN
+                            print(colors.style.RESET_ALL + colors.fg.RED
                                   + tabulate(lst_record, tablefmt="grid", ) + colors.style.RESET_ALL + '\n')
                     del suggest_lst
                     del lst_choose_text
@@ -306,7 +306,7 @@ class Cheking:
                             select.select_action(text_translate)
                         else:
                             lst_record = [[write_to.dic_to_file(text, text_translate)]]
-                            print(colors.style.RESET_ALL + colors.fg.CYAN
+                            print(colors.style.RESET_ALL + colors.fg.RED
                                   + tabulate(lst_record,tablefmt="grid", ) + colors.style.RESET_ALL + '\n')
 
                     elif check == "-":
