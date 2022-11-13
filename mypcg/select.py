@@ -135,7 +135,7 @@ def select_action(value, arg=''):
             read = openfile.OpenFile()
             dic_ = read.opening_json('dictionary.json')
             c = 1
-            head = ["№", "Слово", "Перевод"]
+            head = ["№", "Слово ", "Перевод  "]
             lst_dic = []
             lst_dicbig = []
 
@@ -175,11 +175,12 @@ def select_action(value, arg=''):
                   + style.RESET_ALL)
 
             if arg:
-                print(arg)
+                print(style.RESET_ALL + fg.RED + arg + style.RESET_ALL + '\n')
 
             text = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
             while text == "" or text.isalpha():
-                text = input('\033[32m' + '\033[1m' + "введите правилное значение\n[\\][/][0] ::-> ").lower().strip()
+                os.system("cls")
+                select_action("2", "**введите правильное значение**")
 
             if text == '\\' or text == '/':
                 os.system('cls')
@@ -230,7 +231,7 @@ def select_action(value, arg=''):
 
                                     if new_word == word[1]:
                                         select_action("2", f" слово {new_word.upper()} уже"
-                                                           f" существует в словаре со значением {word[2].upper()}")
+                                                           f" существует в словаре № {word[0]} \n со значением {word[2].upper()}")
                                         break
 
                                 else:
@@ -269,11 +270,7 @@ def select_action(value, arg=''):
 
                     select_action('2', 'такого номера нет!')
 
-            # while text.isdigit() and text not in lst_choose:
-            #     text = input('\033[32m' + '\033[1m' + "введите правильный номер:-> ").lower().strip()
 
-            # else:
-            #     select_action(text)
         elif os.path.exists('dictionary.json') and os.path.getsize('dictionary.json') == 0:
             print("Словарь пустой. выбирайте  [1]\n и создайте словарь")
             text = input('\033[32m' + '\033[1m' + "ваш выбор::-> " + colors.style.RESET_ALL).lower().strip()
@@ -294,23 +291,28 @@ def select_action(value, arg=''):
 
     elif value == '4':
 
-        # lst_choose = ['1', '2', '3', '0']
-        print("здесь вы можете искать слова в гугле переводчике")
-
-        print("""
+        lst_menu =[["Здесь можете искать слова\nв гугле переводчике"],
+                   ["""
 [1] поиск в словаре
 [2] посмотреть слова
 [3] меню
 [0] выход
-                """)
+                """]
+                   ]
+
+        print(style.RESET_ALL + fg.YELLOW + tabulate(lst_menu, tablefmt="grid", )
+              + style.RESET_ALL)
         lst_choose = ['1', '2', '3', '0', '4']
 
         text = input("введите слово ->: ")
         while not text.replace(" ", "").isalpha() and text not in lst_choose:
             text = input("введите правильное слово ->: ")
         if text in lst_choose:
-            os.system('cls')
-            select_action(text)
+            if text =='0':
+                select_action(text)
+            else:
+                os.system('cls')
+                select_action(text)
         else:
             if text.replace(" ", "").replace("-", "").isalpha() and os.path.getsize('dictionary.json') != 0:
 
@@ -328,9 +330,7 @@ def select_action(value, arg=''):
                 select_action("4")
 
     elif value == '0':
-        # print("""
-        #  ___ ДО СВИДАНИЯ___
-        #                 """)
+
         lst = [['___ ДО СВИДАНИЯ___']]
         input("enter to exit")
         print("подождите.....")
@@ -344,4 +344,3 @@ def select_action(value, arg=''):
         sys.exit()
     return text
 
-# a=menu.Menus.show_menu()

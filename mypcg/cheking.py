@@ -4,13 +4,11 @@ import httpcore
 from tabulate import tabulate
 
 import colors
-import fonts
 import openfile
 import write_to_file
 from mypcg import select, test
 import arabic_reshaper
 from bidi.algorithm import get_display
-from arabic_reshaper import ArabicReshaper
 
 
 class Cheking:
@@ -18,31 +16,12 @@ class Cheking:
     @staticmethod
     def checking(dic, text,null=0,online=0):
 
-        # lst_choose = ['1', '3', '2', '0']
-        # write_to = write_to_file.Write_To_File()
-        # print("из словаря " )
-        # print('\033[32m' + '\033[1m' + "Данное слово не найдено!! ")
-        # print("\nВведите его значение \n для записи в словарь: -> ", end="")
-        # text_translate = input().lower().strip()
-        # while not text_translate.replace(" ", '').isalpha() and text_translate not in lst_choose:
-        #     print("Введите правильное значение: -> ", end="")
-        #     text_translate = input().lower().strip()
-        #     os.system('cls')
-        # if text_translate in lst_choose:
-        #     os.system('cls')
-        #     select.select_action(text_translate)
-        # else:
-        #     print('\033[34m' + write_to.dic_to_file(text, text_translate))
-        #     select.select_action("1")
 
-        # global sugg_text
         if dic is not None and text in dic.keys():
             alpha_en = 'abcdefghijklmnopqrstuvwxyz'
             alpha_farsi = 'ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی'
             os.system('cls')
-            # if text.lower() not in lst:
-            #     print('+++ это слово есть в вашем словаре\nно мы не нашли его в словаре русского языка')
-            #     print("+--проверьте, может вы неправильно написали--+")
+
             c = 0
             alph_text = ''
             for i in alpha_en:
@@ -67,21 +46,11 @@ class Cheking:
             reshaped = arabic_reshaper.reshape(dic[text])
             bidi_tex1 = get_display(reshaped)
             #______________________________________________
-            lst_translate = [[f'перевод слово на {alph_text}:'],
+            lst_translate = [[f'перевод на ---{alph_text}---   '],
                              ['\033[31m' + '\033[1m' + bidi_tex1.center(25," ")]]
-            # print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + bidi_tex1)
             print(
                 colors.style.RESET_ALL + colors.fg.CYAN + tabulate(lst_translate, tablefmt="grid", )
                 + colors.style.RESET_ALL + '\n')
-
-
-
-
-
-            # print(reshaped_text[::-1])
-
-
-
 
             for i, j in dic.items():
                 if j == dic[text] and i != text:
@@ -104,8 +73,11 @@ class Cheking:
                             alph_text = "Русский"
                     reshaped = arabic_reshaper.reshape(i)
                     bidi_tex2 = get_display(reshaped)
-                    print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + bidi_tex2)
-
+                    st_translate = [[f'перевод  на ---{alph_text}---   '],
+                                    ['\033[31m' + '\033[1m' + bidi_tex2.center(25, " ")]]
+                    print(
+                        colors.style.RESET_ALL + colors.fg.CYAN + tabulate(st_translate, tablefmt="grid", )
+                        + colors.style.RESET_ALL + '\n')
         elif dic is not None and text in dic.values():
             alpha_en = 'abcdefghijklmnopqrstuvwxyz'
             alpha_farsi = 'ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی'
@@ -132,8 +104,11 @@ class Cheking:
                             alph_text = "Русский"
                     reshaped = arabic_reshaper.reshape(i)
                     bidi_tex3 = get_display(reshaped)
-                    print('\n' + f'перевод слово на {alph_text}: -> ' + '\033[31m' + '\033[1m' + bidi_tex3)
-
+                    st_translate = [[f'перевод на ---{alph_text}---'],
+                                    ['\033[31m' + '\033[1m' + bidi_tex3.center(25, " ")]]
+                    print(
+                        colors.style.RESET_ALL + colors.fg.CYAN + tabulate(st_translate, tablefmt="grid", )
+                        + colors.style.RESET_ALL + '\n')
         elif online==1 or null == 1 or dic is not None and text not in dic.keys() and text not in dic.values():
 
             if online == 1:
