@@ -1,20 +1,65 @@
-lines=[]
-c=0
-d=0
 
-while c<50:
-    with open("engwords.txt", 'r', encoding='utf-8') as file:
-        for line in file:
-            c+=1
-            lines.append(file.readline().rstrip())
-            if c == 50:
-                with open(f"newdic{d}.txt", 'w+', encoding='utf-8') as file:
-                    for i in lines:
-                        file.write(i + '\n')
+import googletrans
+import httpcore
+from googletrans import Translator
 
-                lines.clear()
-                c=0
-                d+=1
+# Updated Answer as of 2021 Sept
+#
+# pip uninstall googletrans==4.0.0-rc1
+#
+# pip install googletrans==3.1.0a0
+# The 3.1.0a0 version works with bulk translation too!
+
+translator = Translator()
+text = input("введите: ")
+try:
+    # dt = translator.detect(text)
+    TEST = translator.translate('hi',dest='ru')
+    print("соединение с интерненом проведено успешно")
+
+except:
+    httpcore._exceptions.ConnectError()
+    print("нет интернета")
+else:
+    st = translator.translate(text, dest='fa')
+    print(st.text)
+
+
+
+
+
+# with open("ENRUS.TXT" , 'r' , encoding='utf-8') as file:
+#
+#         lines =[line.rstrip() for line in file]
+# lst = []
+# for i in range(0,len(lines)-1):
+#     lst.append([lines[i],lines[i+1]])
+#
+# text = input("веддите: ")
+# for i in lst:
+#     if text.lower() == i[0]:
+#         print(i[1])
+#     elif  text.lower() == i[1]:
+#         print(i[0])
+
+
+# lines=[]
+# c=0
+# d=0
+#
+# while c<50:
+#     with open("engwords.txt", 'r', encoding='utf-8') as file:
+#         for line in file:
+#             c+=1
+#             lines.append(file.readline().rstrip())
+#             if c == 50:
+#                 with open(f"newdic{d}.txt", 'w+', encoding='utf-8') as file:
+#                     for i in lines:
+#                         file.write(i + '\n')
+#
+#                 lines.clear()
+#                 c=0
+#                 d+=1
                 #
 
 

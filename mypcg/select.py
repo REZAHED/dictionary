@@ -1,7 +1,13 @@
 import json
 import sys
 import os
+from time import sleep
+
+import httpcore
+import write_to_file
+from googletrans import Translator
 from tabulate import tabulate
+
 import colors
 import menu
 import openfile
@@ -19,17 +25,20 @@ def select_action(value, arg=''):
 
     if value == '1' or value == '\\':
 
-        lst_choose = ['1', '2', '3', '0']
 
-        print("""
-[1] занова искать 
-[2] посмотреть слова
+        lst_choose = ['1', '2', '3','4', '0']
+        lst_menu =[["""
+[1] искать в словаре        
+[2] посмотреть слова  
 [3] меню
+[4] онлайн поиск
 [0] выход
-        """)
+        """]]
+        print(style.RESET_ALL + fg.YELLOW + tabulate(lst_menu, tablefmt="grid", ) + style.RESET_ALL)
         if os.path.exists('dictionary.json'):
-            text = input(fg.CYAN + "Введите слово для перевода\n"
-                                   " или выбирайте из меню :-> " + style.RESET_ALL).lower().strip()
+            lst_input = [["Введите слово для перевода  \nили выбирайте из меню :->   "]]
+            print(style.RESET_ALL + fg.CYAN + tabulate(lst_input, tablefmt="grid", ) + style.RESET_ALL+'\n')
+            text = input("---> ").lower().strip()
             while text.isdigit() and text not in lst_choose or text == "":
                 text = input(
                     '\033[32m' + '\033[1m' + "введите правильный номер:-> " + colors.style.RESET_ALL).lower().strip()
@@ -44,11 +53,17 @@ def select_action(value, arg=''):
                 text = input('\033[32m' + '\033[1m' + "введите правильный номер:-> ").lower().strip()
         sign = ['-', '+', '_', '.', '?']
         if text == "0":
-            print("""
-     ___ ДО СВИДАНИЯ___
-                                    """)
+            lst = [['___ ДО СВИДАНИЯ___']]
             input("enter to exit")
-            exit()
+            print("подождите.....")
+            sleep(1)
+            print("сохраняем данные....")
+            sleep(1)
+            print("------", end="")
+            print("-----------------")
+            sleep(1)
+            print(style.RESET_ALL + fg.YELLOW + tabulate(lst, tablefmt="grid", ) + style.RESET_ALL)
+            sys.exit()
 
         elif text == "1" or text == '\\':
             os.system('cls')
@@ -125,7 +140,8 @@ def select_action(value, arg=''):
                 c += 1
 
             # for i in lst_dicbig:
-
+            del lst_dic
+            del lst_copy
             print(style.RESET_ALL + fg.YELLOW + tabulate(lst_dicbig, tablefmt="grid", ) + style.RESET_ALL)
             # m += 1
             # d += 1
@@ -155,9 +171,12 @@ def select_action(value, arg=''):
             while text == "" or text.isalpha():
                 text = input('\033[32m' + '\033[1m' + "введите правилное значение\n[\\][/][0] ::-> ").lower().strip()
 
-            if text == '\\' or text == '/' or text == '0':
+            if text == '\\' or text == '/' :
                 os.system('cls')
                 select_action(text)
+            elif text == "0":
+                select_action(text)
+
             elif text =="-":
                 print("вы действительно хотите удалить словарь?\n"
                       "[да][нет] ваш выбор ->" ,end="")
@@ -254,21 +273,19 @@ def select_action(value, arg=''):
             text = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
             select_action(text)
     elif value == '3' or value == '/':
+
         os.system('cls')
         b = menu.Menus.show_menu()
-        select_action(b)
+        if b == '3':
+            select_action('4')
+        else:
+            select_action(b)
+
 
     elif value == '4':
-        os.system('cls')
+
         # lst_choose = ['1', '2', '3', '0']
-        print("здесь вы можете изменить/удалить слова")
-
-        select_action("2")
-        print("""
-[+] изменить
-[-] удалить
-
-                        """)
+        print("здесь вы можете искать слова в гугле переводчике")
 
         print("""
 [1] поиск в словаре
@@ -276,11 +293,44 @@ def select_action(value, arg=''):
 [3] меню
 [0] выход
                 """)
+        lst_choose = ['1', '2','3', '0', '4']
+
+        text = input("введите слово ->: ")
+        while not text.replace(" ","").isalpha() and text not in  lst_choose:
+            text = input("введите правильное слово ->: ")
+        if text in lst_choose:
+            os.system('cls')
+            select_action(text)
+        else:
+            if text.replace(" ", "").replace("-", "").isalpha() and os.path.getsize('dictionary.json') != 0:
+
+                read = openfile.OpenFile()
+                dic_ = read.opening_json('dictionary.json')
+                cheking.Cheking.checking(dic_, text,online=1)
+
+                select_action("4")
+            elif text.replace(" ", "").replace("-", "").isalpha() and os.path.getsize('dictionary.json') == 0:
+        # read = openfile.OpenFile()
+        # dic_ = read.opening_json('dictionary.json')
+
+                 cheking.Cheking.checking(None, text,online=1)
+
+                 select_action("4")
+
     elif value == '0':
-        print("""
-         ___ ДО СВИДАНИЯ___
-                        """)
-        # input("enter to exit")
+        # print("""
+        #  ___ ДО СВИДАНИЯ___
+        #                 """)
+        lst= [['___ ДО СВИДАНИЯ___']]
+        input("enter to exit")
+        print("подождите.....")
+        sleep(1)
+        print("сохраняем данные....")
+        sleep(1)
+        print("------", end="")
+        print("-----------------")
+        sleep(1)
+        print(style.RESET_ALL + fg.YELLOW + tabulate(lst, tablefmt="grid", ) + style.RESET_ALL)
         sys.exit()
     return text
 

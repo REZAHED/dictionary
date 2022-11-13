@@ -14,4 +14,7 @@ text = ""
 # функия для выбора из меню. работает с статическими методами в модули menu
 
 a = menu.Menus.show_menu()
-select.select_action(a)
+if a =='3':
+    select.select_action('4')
+else:
+    select.select_action(a)

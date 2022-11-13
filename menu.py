@@ -1,5 +1,7 @@
 import os
 
+from tabulate import tabulate
+
 from colors import fg,bg,style
 
  # class bcolors:
@@ -18,21 +20,30 @@ class Menus:
 
     @staticmethod
     def show_menu(value=None):
-        lst_choose=['1','2','0']
-        print(fg.YELLOW + "Welcome to my first Dictionary")
-        print("выбирайте из списка:")
-        print(style.RESET_ALL+""" 
+        lst_choose=['1','2','3','0']
+        lst_welcom = [["---- Welcome to my first Dictionary -----         "]]
+        print(style.RESET_ALL + fg.WHITE + tabulate(lst_welcom, tablefmt="grid", ) + style.RESET_ALL)
+
+
+        lst = [[" выбирайте из списка: "],[""" 
 [1] поиск в словаре
 [2] посмотреть слова\\изменить или удалить
+[3] онлайн поиск
 [0] выход
-""")
+"""]]
+        print(style.RESET_ALL + fg.YELLOW + tabulate(lst, tablefmt="grid", ) + style.RESET_ALL)
+
+        # print(style.RESET_ALL+)
         if not value:
             text = input('\033[32m' + '\033[1m' + "ваш выбор::-> ").lower().strip()
             while text not in lst_choose:
                 text = input('\033[32m' + '\033[1m' + "введите правильный номер:-> ").lower().strip()
-            os.system('cls')
+            if text =='0':
+                return text
+            else:
+                os.system('cls')
 
-            return text
+                return text
 
         os.system('cls')
         return value

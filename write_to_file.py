@@ -24,4 +24,4 @@ class Write_To_File:
         with open('dictionary.json', 'r+', encoding='utf-8-sig') as file:
             json.dump(dic_en_rus, file, indent=2, ensure_ascii=False)
             os.system('cls')
-        return colors.fg.YELLOW+ f'Слово --{word.upper()}-- и его значение --{translate.upper()}-- успешно сохранены.'
+        return colors.fg.WHITE+ f'Слово {word.upper()} и его значение\n {translate.upper()} успешно сохранены.'
