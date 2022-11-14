@@ -12,12 +12,17 @@ class OpenFile:
 
     @staticmethod
     def opening_json(self):
+        if os.path.exists('dictionary.json') and os.path.getsize('dictionary.json') !=0:
 
-        if os.path.getsize('dictionary.json') !=0:
+        # if os.path.getsize('dictionary.json') !=0:
             with open(self, 'r', encoding='utf-8-sig') as file:
                 return json.load(file)
-        else:
-            pass
+        elif not os.path.exists('dictionary.json'):
+            file = open('dictionary.json', 'a+', encoding='utf-8-sig')
+            file.close()
+            return None
+        elif os.path.exists('dictionary.json') and os.path.getsize('dictionary.json') ==0:
+            return None
 # if __name__=="__main__":
 #     a=OpenFile()
 #     a.opening_read('dictionary.json')

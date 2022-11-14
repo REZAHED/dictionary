@@ -51,7 +51,7 @@ class Cheking:
             print(
                 colors.style.RESET_ALL + colors.fg.CYAN + tabulate(lst_translate, tablefmt="grid", )
                 + colors.style.RESET_ALL + '\n')
-
+            st_translate=[]
             for i, j in dic.items():
                 if j == dic[text] and i != text:
                     for e in alpha_en:
@@ -73,10 +73,8 @@ class Cheking:
                             alph_text = "Русский"
                     reshaped = arabic_reshaper.reshape(i)
                     bidi_tex2 = get_display(reshaped)
-                    st_translate = [[f'перевод  на ---{alph_text}---   '],
-                                    ['\033[31m' + '\033[1m' + bidi_tex2.center(25, " ")]]
-                    print(
-                        colors.style.RESET_ALL + colors.fg.CYAN + tabulate(st_translate, tablefmt="grid", )
+                    st_translate.append([f'перевод  на -{alph_text}-' + bidi_tex2.center(25, " ")])
+            print(colors.style.RESET_ALL + colors.fg.CYAN + tabulate(st_translate, tablefmt="grid", )
                         + colors.style.RESET_ALL + '\n')
         elif dic is not None and text in dic.values():
             alpha_en = 'abcdefghijklmnopqrstuvwxyz'
@@ -110,219 +108,17 @@ class Cheking:
                         colors.style.RESET_ALL + colors.fg.CYAN + tabulate(st_translate, tablefmt="grid", )
                         + colors.style.RESET_ALL + '\n')
         elif online==1 or null == 1 or dic is not None and text not in dic.keys() and text not in dic.values():
-
             if online == 1:
-                lst_lang = ['fa','en','ru']
-                translator = Translator()
-                print('на какой язык хотите перевести\nперсидский[fa],русский[ru],английский[en] ->:',end="")
-                dest_lang = input("")
-                while dest_lang not in lst_lang:
-                    print('введите персидский[fa],русский[ru],английский[en] ->:', end="")
-                    dest_lang = input("")
-                try:
-                    # dt = translator.detect(text)
-                    st = translator.translate(text, src='ru', dest=dest_lang)
-                except:
-                    httpcore._exceptions.ConnectError()
-                    print("нет интернета")
-                else:
+                write_to_file.Write_To_File.read_suggest_dic_online(text)
 
-                    write_to = write_to_file.Write_To_File()
-                    lst_record = [[write_to.dic_to_file(text, st.text)]]
-                    print(colors.style.RESET_ALL + colors.fg.CYAN
-                          + tabulate(lst_record, tablefmt="grid", ) + colors.style.RESET_ALL + '\n')
-                    # print('\033[34m' + write_to.dic_to_file(text, st.text))
-            # lst = []
-            #
-            #
-            # if not lst:
-            # print(lst)
+
             else:
+                write_to_file.Write_To_File.read_suggest_dic_offline(text)
 
-                with open('slov_russ_dic.txt', 'r', encoding='utf-8') as file:
-                    if len(text) == 1:
-                        lines = {line.rstrip() for line in file.readlines() if len(line.rstrip()) == 1}
-
-                    elif len(text) == 2:
-                        lines = {line.rstrip() for line in file.readlines() if len(line.rstrip()) == 2}
-                    elif len(text) >= 3:
-                        lines ={line.rstrip() for line in file.readlines()
-                                if len(line.rstrip()) == len(text)+1
-                                or len(line.rstrip())==len(text)}
-
-
-            # print(lines)
-            # for i in lines:
-            #
-            #     if i[0]:
-            #         lst.append(i[0].lower())
-
-            # print(lst)
-            # lines.clear()
-            # lst_to_set = set(lst)
-                if text.lower() in lines:
-
-                    lst_choose = ['1', '3', '2','4', '0']
-                    write_to = write_to_file.Write_To_File()
-
-                    print('\033[32m' + '\033[1m' + "Данное слово не записано в словаре!! ")
-                    print("\nВведите его значение \n для записи в словарь: -> ", end="")
-                    text_translate = input().lower().strip()
-                    while not text_translate.replace(" ", '').isalpha() and text_translate not in lst_choose:
-                        print("Введите правильное значение или :\n выберите [1][2][3][4][0] -> ", end="")
-                        text_translate = input().lower().strip()
-                        os.system('cls')
-                    if text_translate in lst_choose:
-                        os.system('cls')
-                        select.select_action(text_translate)
-                    else:
-                        lst_record = [[write_to.dic_to_file(text, text_translate)]]
-                        print(colors.style.RESET_ALL + colors.fg.RED
-                              + tabulate(lst_record, tablefmt="grid", ) + colors.style.RESET_ALL + '\n')
-                        # print('\033[34m' + write_to.dic_to_file(text, text_translate))
-                        select.select_action("1")
-                else:
-
-                    write_to = write_to_file.Write_To_File()
-                    print("\nэтого слова нет в словаре русского языка\nи не записано в вашем словаре\n")
-
-                    suggest_lst = test.suggest(text, lines)
-
-                    del lines
-                    # sugg_text = ""
-                    if suggest_lst:
-                        print(colors.fg.RED + 'может вы имели ввиду -> :', end="")
-
-                        # c = 0
-                        for i in range(len(suggest_lst)):
-                            # for j in list(text):
-                            #     if j in suggest_lst[i]:
-                            #         c+=1
-                            # if c== len(text)  :
-
-                            #         or len(text) == len(suggest_lst[i]) + 1 :
-                            #     c=0
-                            #     print(suggest_lst[i])
-                            #     print(list(text))
-                            # else:
-                            #     c=0
-                            #     suggest_lst.pop(i)
-                            print(colors.fg.YELLOW + f' {i + 5}.{suggest_lst[i]}', end='' + colors.style.RESET_ALL)
-
-                            # sugg_text +=f' {i + 4}.{suggest_lst[i]} '
-
-                            if i == 4:
-                                print('\n',end="")
-                            if i == 9:
-                                print("\n")
-                                break
-                        # suggest_lst.clear()
-                        # print(sugg_text)
-                        print("\nвы правильно написали? выберите [+]ДА , [-]НЕТ \nили введите номер из предложений -> : ", end="")
-
-                    else:
-                        # suggest_lst.clear()
-                        # print(colors.fg.RED + "Данное слово не найдено!! ")
-                        print("\nвы правильно написали? выберите [+]ДА , [-]НЕТ  -> : ", end="")
-
-                    check = input().lower().strip()
-
-                    check_lst = ["+", "-"]
-                    lst_choose = ['1', '3', '2','4', '0']
-                    lst_choose_text = []
-
-                    for i in range(len(suggest_lst)):
-                        if i == 10:
-                            break
-                        else:
-                            lst_choose_text.append(str(i+5))
-                    # else:
-                    while check not in check_lst and check not in lst_choose and check not in lst_choose_text:
-                        check = input("введите ' + ' или ' - '   :-> ").lower().strip()
-                    if check in lst_choose:
-                        os.system('cls')
-                        select.select_action(check)
-
-                    if check in lst_choose_text:
-                        text= suggest_lst[int(check)-5]
-                        print(colors.fg.YELLOW+ f' вы выбрали слово : {text}' + colors.style.RESET_ALL)
-
-
-                        print("\nВведите его значение \nили выберите [1][2][3][4][0] из меню -> ", end="")
-                        text_translate = input().lower().strip()
-
-
-                        while not text_translate.replace(" ", '').isalpha() and text_translate not in lst_choose:
-                            print("Введите правильное значение: -> ", end="")
-                            text_translate = input().lower().strip()
-                            os.system('cls')
-                        if text_translate in lst_choose:
-                            os.system('cls')
-                            select.select_action(text_translate)
-                        else:
-
-                            # print('\033[34m' + write_to.dic_to_file(text, text_translate))
-                            lst_record = [[write_to.dic_to_file(text, text_translate)]]
-                            print(colors.style.RESET_ALL + colors.fg.RED
-                                  + tabulate(lst_record, tablefmt="grid", ) + colors.style.RESET_ALL + '\n')
-                    del suggest_lst
-                    del lst_choose_text
-
-                    if check == '+':
-                        print("\nВведите его значение \n для записи в словарь: -> ", end="")
-                        text_translate = input().lower().strip()
-
-                        while not text_translate.replace(" ", '').isalpha() and text_translate not in lst_choose:
-                            print("Введите правильное значение: -> ", end="")
-                            text_translate = input().lower().strip()
-                            os.system('cls')
-                        if text_translate in lst_choose:
-                            os.system('cls')
-                            select.select_action(text_translate)
-                        else:
-                            lst_record = [[write_to.dic_to_file(text, text_translate)]]
-                            print(colors.style.RESET_ALL + colors.fg.RED
-                                  + tabulate(lst_record,tablefmt="grid", ) + colors.style.RESET_ALL + '\n')
-
-                    elif check == "-":
-                        Cheking.choose()
         elif dic is None:
 
             Cheking.checking(dic,text,1)
-            # with open('slov_russ_dic.txt', 'r', encoding='utf-8') as file:
-            #     if len(text) == 1:
-            #         lines = {line.rstrip() for line in file.readlines() if len(line.rstrip()) == 1}
-            #
-            #     elif len(text) == 2:
-            #         lines = {line.rstrip() for line in file.readlines() if len(line.rstrip()) == 2}
-            #     elif len(text) >= 3:
-            #         lines ={line.rstrip() for line in file.readlines()
-            #                 if len(line.rstrip()) == len(text)+1
-            #                 or len(line.rstrip())==len(text)}
-            # if text.lower() in lines:
-            #
-            #     lst_choose = ['1', '3', '2', '0']
-            #     write_to = write_to_file.Write_To_File()
-            #
-            #     print('\033[32m' + '\033[1m' + "Данное слово не зписано в словаре!! ")
-            #     print("\nВведите его значение \n для записи в словарь: -> ", end="")
-            #     text_translate = input().lower().strip()
-            #     while not text_translate.replace(" ", '').isalpha() and text_translate not in lst_choose:
-            #         print("Введите правильное значение или :\n выберите [1][2][3][0] -> ", end="")
-            #         text_translate = input().lower().strip()
-            #         os.system('cls')
 
-
-                # lst_choose = ['1', '3', '2', '0']
-                # print(colors.style.RESET_ALL + "\n---Cловарь пустой---")
-                # print("\nВведите его значение \nдля записи в словарь: -> ", end="")
-                # text_translate = input().lower().strip()
-                # if text_translate in lst_choose:
-                #     os.system('cls')
-                #     select.select_action(text_translate)
-                # else:
-                #     print('\033[34m' + write_to.dic_to_file(text, text_translate))
-                #     select.select_action("1")
 
     @staticmethod
     def choose(arg=""):
@@ -339,10 +135,6 @@ class Cheking:
         text = right_word
         read = openfile.OpenFile()
         dic = read.opening_json('dictionary.json')
-        # os.system("cls")
-        # print(arg)
+
         Cheking.checking(dic, text)
-        # print("yyyyyyyyyyyyyy")
-        # print("\nВведите его значение для записи в словарь: -> ", end="")
-        # text_translate = input().lower().strip()
-        # print('\033[34m' + write_to.dic_to_file(text, text_translate))
+
