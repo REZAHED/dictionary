@@ -4,7 +4,6 @@
 #     for i in lst_suggest:
 #         if value not  in
 from fuzzywuzzy import process
-from fuzzywuzzy import fuzz
 
 def suggest(text, lst):
 
@@ -40,14 +39,38 @@ def suggest(text, lst):
     #     if len(i) == len(text) :
     #         new_lst_choose.append(i)
 
-    ratio = process.extract(text, lst, limit=20)
+    ratio = process.extract(text, lst, limit=75)
+
     for e in ratio:
-        if e[1] > 50 and e[0][0] == text[0] and e[0][0] not in new_lst :
+
+        if e[1] > 66 and e[0][0] == text[0]:
             new_lst.append(e[0])
     for e in ratio:
-        if e[1] > 50 and e[0] not in new_lst:
+        if e[1] > 66 and e[0] not in new_lst:
             new_lst.append(e[0])
-    new_lst_choose.clear()
+    # c=0
+    # for i in new_lst:
+    #     for j in list(text):
+    #         if j in i:
+    #             c +=1
+    #             if c == len(text) -1 and len(i) == len(text):
+    #                 new_lst_choose.append(i)
+    #                 c=0
+    #
+    #     else:
+    #         c=0
+    #
+    # for i in new_lst:
+    #     for j in list(text):
+    #         if j in i:
+    #             c +=1
+    #             if c == len(text) -1 and len(i) == len(text)+1:
+    #                 new_lst_choose.append(i)
+    #                 c=0
+    #
+    #     else:
+    #         c=0
+    # print(new_lst_choose)
 
     last_lst =[]
     # new_lst.clear()

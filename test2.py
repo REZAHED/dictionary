@@ -32,17 +32,17 @@ except:
     print("нет интернета")
 else:
 
-    for i in tqdm(range(43741,len(lines)),ncols=100):
+    for i in tqdm(range(len(lines)),ncols=100,colour="red"):
 
-        st = translator.translate(lines[i],src='ru', dest='fa')
+        st = translator.translate(lines[i],src='ru', dest='en')
         dic_ru_fa[lines[i]] = st.text
         c += 1
 
         d += 1
 
 
-        if c == 20:
-            with open('translate_ru_en_2.json.json', 'w+', encoding='utf-8-sig') as file:
+        if c == 5:
+            with open('translate_ru_en.json', 'w+', encoding='utf-8-sig') as file:
                 json.dump(dic_ru_fa, file, indent=2, ensure_ascii=False)
             c = 0
 

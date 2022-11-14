@@ -45,6 +45,8 @@ class Write_To_File:
         lst_record=[]
         lst_lang = ['fa', 'en', 'ru']
         translator = Translator()
+
+
         print('на какой язык хотите перевести\nперсидский[fa],русский[ru],английский[en] ->:', end="")
         dest_lang = input("")
         while dest_lang not in lst_lang:
@@ -66,14 +68,14 @@ class Write_To_File:
 
         with open('slov_russ_dic.txt', 'r', encoding='utf-8') as file:
             if len(text) == 1:
-                lines = {line.rstrip() for line in file.readlines() if len(line.rstrip()) == 1}
+                lines = [line.rstrip() for line in file.readlines() if len(line.rstrip()) == 1]
 
             elif len(text) == 2:
-                lines = {line.rstrip() for line in file.readlines() if len(line.rstrip()) == 2}
+                lines = [line.rstrip() for line in file.readlines() if len(line.rstrip()) == 2]
             elif len(text) >= 3:
-                lines = {line.rstrip() for line in file.readlines()
+                lines = [line.rstrip() for line in file.readlines()
                          if len(line.rstrip()) == len(text) + 1
-                         or len(line.rstrip()) == len(text)}
+                         or len(line.rstrip()) == len(text)]
 
         if text.lower() in lines:
 
@@ -91,7 +93,7 @@ class Write_To_File:
             else:
                 transalte = Write_To_File.online_translate(text)
                 print(transalte)
-                select.select_action("1")
+                select.select_action("4")
         else:
 
 
@@ -145,7 +147,7 @@ class Write_To_File:
                 print(colors.fg.YELLOW + f' вы выбрали слово : {text}' + colors.style.RESET_ALL)
                 transalte = Write_To_File.online_translate(text)
                 print(transalte)
-                select.select_action("1")
+                select.select_action("4")
 
 
 
@@ -167,14 +169,15 @@ class Write_To_File:
     def read_suggest_dic_offline(text):
         with open('slov_russ_dic.txt', 'r', encoding='utf-8') as file:
             if len(text) == 1:
-                lines = {line.rstrip() for line in file.readlines() if len(line.rstrip()) == 1}
+                lines = [line.rstrip() for line in file.readlines() if len(line.rstrip()) == 1]
 
             elif len(text) == 2:
-                lines = {line.rstrip() for line in file.readlines() if len(line.rstrip()) == 2}
+                lines = [line.rstrip() for line in file.readlines() if len(line.rstrip()) == 2]
             elif len(text) >= 3:
-                lines = {line.rstrip() for line in file.readlines()
+                lines = [line.rstrip() for line in file.readlines()
                          if len(line.rstrip()) == len(text) + 1
-                         or len(line.rstrip()) == len(text)}
+                         or len(line.rstrip()) == len(text)
+                         or len(line.rstrip()) == len(text)-1 ]
 
         if text.lower() in lines:
 

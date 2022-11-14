@@ -249,7 +249,7 @@ def select_action(value, arg=''):
         lst_choose = ['1', '2', '3', '0', '4']
 
         text = input("введите слово ->: ")
-        while not text.replace(" ", "").isalpha() and text not in lst_choose:
+        while not text.replace(" ", "").replace("?","").isalpha() and text not in lst_choose:
             text = input("введите правильное слово ->: ")
         if text in lst_choose:
             if text == '0':
@@ -257,7 +257,7 @@ def select_action(value, arg=''):
             else:
                 os.system('cls')
                 select_action(text)
-        elif text.replace(" ", "").replace("-", "").isalpha():
+        elif text.replace(" ", "").replace("-", "").replace("?","").isalpha():
 
             read = openfile.OpenFile()
             dic_ = read.opening_json('dictionary.json')
