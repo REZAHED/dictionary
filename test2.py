@@ -1,9 +1,5 @@
-import datetime
 import json
 from tqdm import tqdm
-from time import sleep
-
-import googletrans
 import httpcore
 from googletrans import Translator
 
@@ -32,7 +28,7 @@ except:
     print("нет интернета")
 else:
 
-    for i in tqdm(range(len(lines)),ncols=100,colour="red"):
+    for i in tqdm(range(len(lines)),ncols=100):
 
         st = translator.translate(lines[i],src='ru', dest='en')
         dic_ru_fa[lines[i]] = st.text
@@ -41,8 +37,8 @@ else:
         d += 1
 
 
-        if c == 5:
-            with open('translate_ru_en.json', 'w+', encoding='utf-8-sig') as file:
+        if c == 500:
+            with open('translate_ru_en.json', 'r+', encoding='utf-8-sig') as file:
                 json.dump(dic_ru_fa, file, indent=2, ensure_ascii=False)
             c = 0
 

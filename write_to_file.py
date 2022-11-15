@@ -218,7 +218,7 @@ class Write_To_File:
 
                     if i == 4:
                         print('\n', end="")
-                    if i == 9:
+                    if i == 11:
                         print("\n")
                         break
 
@@ -236,7 +236,7 @@ class Write_To_File:
             lst_choose_text = []
 
             for i in range(len(suggest_lst)):
-                if i == 10:
+                if i == 12:
                     break
                 else:
                     lst_choose_text.append(str(i + 5))
