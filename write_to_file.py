@@ -10,18 +10,19 @@ from mypcg import cheking
 
 import colors
 import openfile
-import  json
+import json
 
 
 class Write_To_File:
     os.system('cls')
-    def __init__(self, a="" ,b=""):
-        self.a=a
-        self.b=b
 
-    def dic_to_file(self,word, translate):
-        self.a=word
-        self.b=translate
+    # def __init__(self, a="" ,b=""):
+    #     self.a=a
+    #     self.b=b
+
+    def dic_to_file(self, word, translate):
+        self.a = word
+        self.b = translate
 
         read = openfile.OpenFile()
         dic_en_rus = read.opening_json('dictionary.json')
@@ -32,20 +33,29 @@ class Write_To_File:
         with open('dictionary.json', 'r+', encoding='utf-8-sig') as file:
             json.dump(dic_en_rus, file, indent=2, ensure_ascii=False)
             os.system('cls')
-        return colors.fg.WHITE+ f'Слово {word.upper()} и его значение\n {translate.upper()} успешно сохранены.'
+        return colors.fg.WHITE + f'Слово {word.upper()} и его значение\n {translate.upper()} успешно сохранены.'
 
-    def updat(self,dic):
+    #########################################################
+    #########################################################
+    #########################################################
+    #########################################################
+
+    def updat(self, dic):
 
         with open('dictionary.json', 'w+', encoding='utf-8-sig') as file:
             json.dump(dic, file, indent=2, ensure_ascii=False)
             os.system('cls')
 
+    #########################################################
+    #########################################################
+    #########################################################
+    #########################################################
+
     @staticmethod
     def online_translate(text):
-        lst_record=[]
+        lst_record = []
         lst_lang = ['fa', 'en', 'ru']
         translator = Translator()
-
 
         print('на какой язык хотите перевести\nперсидский[fa],русский[ru],английский[en] ->:', end="")
         dest_lang = input("")
@@ -53,35 +63,32 @@ class Write_To_File:
             print('введите персидский[fa],русский[ru],английский[en] ->:', end="")
             dest_lang = input("")
         try:
-            # dt = translator.detect(text)
+
             st = translator.translate(text, src='ru', dest=dest_lang)
+
         except:
             httpcore._exceptions.ConnectError()
             print("нет интернета")
         else:
 
             lst_record = [[Write_To_File().dic_to_file(text, st.text)]]
-        return colors.style.RESET_ALL + colors.fg.CYAN +\
+        return colors.style.RESET_ALL + colors.fg.CYAN + \
                tabulate(lst_record, tablefmt="grid", ) + colors.style.RESET_ALL + '\n'
+
+    #########################################################
+    #########################################################
+    #########################################################
+    #########################################################
+
     @staticmethod
     def read_suggest_dic_online(text):
 
-        with open('slov_russ_dic.txt', 'r', encoding='utf-8') as file:
-            if len(text) == 1:
-                lines = [line.rstrip() for line in file.readlines() if len(line.rstrip()) == 1]
-
-            elif len(text) == 2:
-                lines = [line.rstrip() for line in file.readlines() if len(line.rstrip()) == 2]
-            elif len(text) >= 3:
-                lines = [line.rstrip() for line in file.readlines()
-                         if len(line.rstrip()) == len(text) + 1
-                         or len(line.rstrip()) == len(text)]
+        lines = openfile.OpenFile.open_dictionary(text)
 
         if text.lower() in lines:
 
             lst_choose = ['1', '3', '2', '4', '0']
             # write_to = Write_To_File()
-
 
             while not text.replace(" ", '').isalpha() and text not in lst_choose:
                 print("Введите правильное значение или :\n выберите [1][2][3][4][0] -> ", end="")
@@ -96,7 +103,6 @@ class Write_To_File:
                 select.select_action("4")
         else:
 
-
             print("\nэтого слова нет в словаре русского языка\nи не записано в вашем словаре\n")
 
             suggest_lst = test.suggest(text, lines)
@@ -104,31 +110,21 @@ class Write_To_File:
             del lines
             if suggest_lst:
                 print(colors.fg.RED + 'может вы имели ввиду -> :', end="")
-
                 for i in range(len(suggest_lst)):
-
                     print(colors.fg.YELLOW + f' {i + 5}.{suggest_lst[i]}', end='' + colors.style.RESET_ALL)
-
-
                     if i == 4:
                         print('\n', end="")
                     if i == 9:
                         print("\n")
                         break
-
                 print("\nвы правильно написали? выберите [+]ДА , [-]НЕТ \nили введите номер из предложений -> : ",
                       end="")
-
             else:
-
                 print("\nвы правильно написали? выберите [+]ДА , [-]НЕТ  -> : ", end="")
-
             check = input().lower().strip()
-
             check_lst = ["+", "-"]
             lst_choose = ['1', '3', '2', '4', '0']
             lst_choose_text = []
-
             for i in range(len(suggest_lst)):
                 if i == 10:
                     break
@@ -149,10 +145,6 @@ class Write_To_File:
                 print(transalte)
                 select.select_action("4")
 
-
-
-
-
             del suggest_lst
             del lst_choose_text
 
@@ -162,22 +154,18 @@ class Write_To_File:
                 print(transalte)
 
             elif check == "-":
-               cheking.Cheking.choose()
+                cheking.Cheking.choose()
 
+    #########################################################
+    #########################################################
+    #########################################################
+    #########################################################
+    #########################################################
 
     @staticmethod
     def read_suggest_dic_offline(text):
-        with open('slov_russ_dic.txt', 'r', encoding='utf-8') as file:
-            if len(text) == 1:
-                lines = [line.rstrip() for line in file.readlines() if len(line.rstrip()) == 1]
 
-            elif len(text) == 2:
-                lines = [line.rstrip() for line in file.readlines() if len(line.rstrip()) == 2]
-            elif len(text) >= 3:
-                lines = [line.rstrip() for line in file.readlines()
-                         if len(line.rstrip()) == len(text) + 1
-                         or len(line.rstrip()) == len(text)
-                         or len(line.rstrip()) == len(text)-1 ]
+        lines = openfile.OpenFile.open_dictionary(text)
 
         if text.lower() in lines:
 
@@ -210,25 +198,17 @@ class Write_To_File:
             # sugg_text = ""
             if suggest_lst:
                 print(colors.fg.RED + 'может вы имели ввиду -> :', end="")
-
-                # c = 0
                 for i in range(len(suggest_lst)):
-
                     print(colors.fg.YELLOW + f' {i + 5}.{suggest_lst[i]}', end='' + colors.style.RESET_ALL)
-
                     if i == 4:
                         print('\n', end="")
                     if i == 11:
                         print("\n")
                         break
-
                 print("\nвы правильно написали? выберите [+]ДА , [-]НЕТ \nили введите номер из предложений -> : ",
                       end="")
-
             else:
-
                 print("\nвы правильно написали? выберите [+]ДА , [-]НЕТ  -> : ", end="")
-
             check = input().lower().strip()
 
             check_lst = ["+", "-"]

@@ -24,7 +24,7 @@ def select_action(value, arg=''):
         #########################################################
 
     if value == '1' or value == '\\':
-        os.system('cls')
+
         lst_choose = ['1', '2', '3', '4', '0']
         lst_menu = [["""
 [1] искать в словаре        
@@ -55,6 +55,7 @@ def select_action(value, arg=''):
         elif text.replace(" ", "").replace("-", "").replace(",", "").replace(".", '').isdigit() \
                 and text.replace(" ", "").replace("-", "").replace(",", "").replace(".", '') in lst_choose:
             value = text
+            os.system('cls')
             select_action(value)
 
         elif text.replace(" ", "").replace("-", "").replace(",", "").isalpha():
