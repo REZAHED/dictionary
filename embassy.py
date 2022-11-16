@@ -6,6 +6,7 @@ dic = {
     'посольство исламской республики Иран ': 'سفارت جمهوری اسلامی ایران',
     'свидительвуя свое уважение': 'با ابراز تعارفات خود به',
     'Министерству Внутренных Дел': 'به وزارت کشور',
+    'Министерство Внутренных Дел':'وزارت کشور',
     'Министерству Иностранных Дел': 'به وزارت امور خارجه',
     'и ссылаясь на ': 'پیرو',
     'в ответ на':'بازگشت',
@@ -20,8 +21,6 @@ dic = {
     'Е.П. г-на Владимира Макей': 'جناب آقای ولادیمیر ماکی',
     'Министр иностранных дел':'وزیر امور خارجه',
     'Исламская Республика Иран':'جمهوری اسلامی ایران',
-    'в Исламскую Республику Иран ':'به جمهوری اسلامی ایران',
-    'в Исламской Республике Иран ':'در جمهوری اسلامی ایران',
     'Е.П. г-н Посол':'سفیر محترم',
 
 }
@@ -29,7 +28,7 @@ lst_big = []
 t = 'با توجه به سفر اخیر جناب آقای ولادیمیر ماکی وزیر امور خارجه به جمهوری اسلامی ایران'
 
 for i,j in dic.items():
-    lst_big.append([i.strip(),j.strip()])
+    lst_big.append([i.strip().lower(),j.strip().lower()])
 
 # print(lst_big)
 
@@ -39,6 +38,7 @@ test = 'سفارت جمهوری اسلامی ایران در مینسک، با �
 test2= 'پیرو یادداشت سفارت'
 while True:
     text = input("Введите текст: ---->>>>>> ").split(" ")
+
     if text =='exit':
         break
     # sp = text.split(" ")
@@ -50,17 +50,18 @@ while True:
     for i in text:
        lst_text.append([c,i])
        c+=1
-    # print(lst_text)
+    print(lst_text)
+
     for e in lst_text:
-        print(e[0])
-    for i in lst_big:
+        # print(e[0])
+        for i in lst_big:
 
 
-            ratio2 = fuzz.token_set_ratio(lst_text,i[1])
-            ratio3 = fuzz.ratio(text, i[1])
-            ratio4 = fuzz.partial_ratio(lst_text, i[1])
-            ratio5 = fuzz.WRatio(text,i[1])
-            ratio6 = process.extract(i[1], text)
+            ratio2 = fuzz.token_set_ratio(e[1],i[1])
+            ratio3 = fuzz.ratio(e[1], i[1])
+            ratio4 = fuzz.partial_ratio(e[1], i[1])
+            ratio5 = fuzz.WRatio(e[1],i[1])
+            ratio6= fuzz.partial_token_set_ratio(e[1],i[1])
 #پیرو یادداشت وزارت امور خارجه
             #با توجه به سفر اخیر وزیر امور خارجه
 
@@ -68,13 +69,13 @@ while True:
 
             # print(['T'+str(ratio2) , ratio3,ratio4,ratio5,ratio6,i[1]])
 
-            if ratio2 >99 and ratio4 >21  :
-                for e in lst_text:
-                    print(e[0])
-                    if i[1] in e:
+            if ratio2 >99 and ratio4 >60  and ratio5>67:
 
-                        lst.insert(e[0],[i[0]])
-    # if not lst:
+                print([ratio2,ratio4,ratio5],i[1])
+                #     if i[1] in e:
+                print([e[0]],i[0])
+                lst.insert(e[0],[i[0]])
+# if not lst:
     #     for i in lst_big:
     #
     #         ratio2 = fuzz.token_set_ratio(text, i[1])
@@ -93,10 +94,24 @@ while True:
     #         if ratio2 > 70 :
     #             lst.append([i[0]])
     text_last=''
-    for i in lst:
+    lst2 = []
+    for i in range(len(lst)-1):
+
+        if  lst[i+1] != lst[i] :
+
+           lst2.append(lst[i])
+    lst2.append(lst[-1])
+
+    for i in lst2:
+
         text_last +=" ".join(i)+" "
     print(text_last)
+    print(lst)
+    print(lst2)
     lst.clear()
+    lst_text.clear()
+    lst2.clear()
+
 
 
 # pip install fuzzywuzzy[speedup]
