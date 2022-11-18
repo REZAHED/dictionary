@@ -1,3 +1,4 @@
+import json
 
 from flashtext.keyword import KeywordProcessor
 
@@ -28,16 +29,54 @@ dic = {
 
 
 }
+dic2={}
+lst=[]
+
+
+
+# for i in range(len(lines)):
+#     lst.append(lines[i].split(":"))
+# print(lst)
+# for i in lst:
+    # if ';' in i[1]:
+    #
+    #     dic2[i[0]] = [i[1][0:i[1].find(';')] + "'"]
+    # else:
+#         dic2[i[0]]=[i[1].replace("\"",'')]
+# print(dic2)
+
+# for i,j in dic2.items():
+#
+#     if ";" in str(j):
+#       dic2[i]=[j[0][:2] +"'"+ j[0][2:5].replace(";",',') ]
+#
+# print(dic2)
+
+
+
 
 keyword_processor = KeywordProcessor()
-keyword_processor.add_keyword('Big Apple', 'New York')
-keyword_processor.add_keywords_from_dict(dic)
-keyword_processor.add_non_word_boundary('.,')
-keyword_processor.add_keyword('New Delhi', 'NCR region')
+# keyword_processor.add_keyword('Big Apple', 'New York')
+keyword_processor.add_keyword_from_file('dic_file.txt')
+dic3 = keyword_processor.get_all_keywords()
+print(dic3)
+keyword_processor.add_non_word_boundary(":.,:")
+
+
+# keyword_processor.add_keyword('New Delhi', 'NCR region')
 while True:
-    text = input(" ведите текст ---->")
-    new_sentence = keyword_processor.replace_keywords(text)
-    print(new_sentence)
+    text = input(" ведите текст ---->").replace("ًً",'').replace('\n',"").strip()
+    if text =="yes":
+        break
+    if text:
+
+        lst.append(text)
+    for i in lst:
+        new_sentence = keyword_processor.replace_keywords(i)
+        print()
+        print(f'{new_sentence.replace("ً", "")}')
+        lst.clear()
+
 # from Levenshtein import distance as lev
 #
 #
