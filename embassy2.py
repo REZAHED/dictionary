@@ -67,16 +67,34 @@ keyword_processor.add_non_word_boundary(":.,:")
 while True:
     text = input(" ведите текст ---->").replace("ًً",'').replace('\n',"").strip()
     if text =="yes":
+        print()
         break
     if text:
 
         lst.append(text)
-    for i in lst:
-        new_sentence = keyword_processor.replace_keywords(i)
-        print()
-        print(f'{new_sentence.replace("ً", "")}')
-        lst.clear()
+new_sentence=''
+lst2=[]
+lenth=110
 
+for i in lst:
+    new_sentence = keyword_processor.replace_keywords(i)
+    lst2.append(new_sentence.replace("ً", "").replace("،",","))
+
+for i in lst2:
+    if len(i)<110:
+        print(i)
+    else:
+        for e in range(0, len(i), lenth):
+            if i[lenth] ==" ":
+                print(i[e:e + lenth])
+            else:
+                while i[lenth]!=" ":
+                    lenth+=1
+
+                print(i[e:e + lenth])
+#
+# print()
+# print(lst2)
 # from Levenshtein import distance as lev
 #
 #
