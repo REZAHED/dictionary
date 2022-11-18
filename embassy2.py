@@ -92,6 +92,7 @@ for i in lst2:
                     lenth+=1
 
                 print(i[e:e + lenth])
+                lenth-=1
 #
 # print()
 # print(lst2)
