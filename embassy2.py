@@ -1,6 +1,11 @@
 import json
 
+import httpcore
 from flashtext.keyword import KeywordProcessor
+from googletrans import Translator
+
+import colors
+import write_to_file
 
 dic = {
     'посольство исламской республики Иран в республике Беларусь':['سفارت جمهوری اسلامی ایران در بلاروس'],
@@ -59,8 +64,18 @@ keyword_processor = KeywordProcessor()
 # keyword_processor.add_keyword('Big Apple', 'New York')
 keyword_processor.add_keyword_from_file('dic_file.txt')
 dic3 = keyword_processor.get_all_keywords()
-print(dic3)
+# print(dic3)
 keyword_processor.add_non_word_boundary(":.,:")
+
+
+def online_translate(text):
+    lst_record = []
+    lst_lang = ['fa', 'en', 'ru']
+    translator = Translator()
+
+    st = translator.translate(text, src='fa', dest='ru')
+    return st.text
+
 
 
 # keyword_processor.add_keyword('New Delhi', 'NCR region')
@@ -79,21 +94,48 @@ lenth=110
 for i in lst:
     new_sentence = keyword_processor.replace_keywords(i)
     lst2.append(new_sentence.replace("ً", "").replace("،",","))
-
 for i in lst2:
     if len(i)<110:
         print(i)
     else:
         for e in range(0, len(i), lenth):
-            if i[lenth] ==" ":
+            # if i[lenth] ==" ":
                 print(i[e:e + lenth])
-            else:
-                while i[lenth]!=" ":
-                    lenth+=1
+            # else:
+            #     while i[lenth]!=" ":
+            #         lenth+=1
+            #
+            #     print(i[e:e + lenth])
+            #     lenth-=1
+print(lst2)
+lst3=[]
+lst4=[]
+alpha_farsi = 'ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی'
+c=0
+for i in lst2:
+    for e in alpha_farsi:
+        if e in i:
+            c+=1
+    if c >=1:
+        lst3=i.replace("،",' ').split(" ")
+        c=0
+c=0
+for i in lst3:
+    for e in alpha_farsi:
+        if e in i:
+            print(e + 'e ' + i)
+            c+=1
+    if c>=1:
 
-                print(i[e:e + lenth])
-                lenth-=1
-#
+        lst4.append(online_translate(i))
+    else:
+        c=0
+        print(i)
+        lst4.append(i)
+print(lst3)
+print(lst4)
+print(online_translate('پیرو سفر وزیر امور خارجه به جمهوری اسلامی ایران و با توجه به سفر آتی نخست وزیر بلاروس جناب آقای رومان گالوفچنکو، خواهشمند است ملاقاتی برای جناب آقای سفیر تنظیم و نتیجه در اسرع وقت به این سفارت اعلام گردد'))
+
 # print()
 # print(lst2)
 # from Levenshtein import distance as lev

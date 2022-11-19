@@ -56,7 +56,7 @@ class Cheking:
             #########################################################
 
             lst_translate = [[f'перевод на ---{alph_text}---   '],
-                             ['\033[31m' + '\033[1m' + bidi_tex1.center(25, " ")]]
+                             ['\033[31m' + '\033[1m' + dic[text].center(25, " ")]]
             print(
                 colors.style.RESET_ALL + colors.fg.CYAN + tabulate(lst_translate, tablefmt="grid", )
                 + colors.style.RESET_ALL + '\n')
@@ -83,7 +83,7 @@ class Cheking:
                             alph_text = "Русский"
                     reshaped = arabic_reshaper.reshape(i)
                     bidi_tex2 = get_display(reshaped)
-                    st_translate.append([f'перевод  на -{alph_text}-' + bidi_tex2.center(25, " ")])
+                    st_translate.append([f'перевод  на -{alph_text}-' + i.center(25, " ")])
             print(colors.style.RESET_ALL + colors.fg.CYAN + tabulate(st_translate, tablefmt="grid", )
                   + colors.style.RESET_ALL + '\n')
 
@@ -119,7 +119,7 @@ class Cheking:
                     reshaped = arabic_reshaper.reshape(i)
                     bidi_tex3 = get_display(reshaped)
                     st_translate = [[f'перевод на ---{alph_text}---'],
-                                    ['\033[31m' + '\033[1m' + bidi_tex3.center(25, " ")]]
+                                    ['\033[31m' + '\033[1m' + i.center(25, " ")]]
                     print(
                         colors.style.RESET_ALL + colors.fg.CYAN + tabulate(st_translate, tablefmt="grid", )
                         + colors.style.RESET_ALL + '\n')

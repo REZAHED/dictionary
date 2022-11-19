@@ -64,7 +64,7 @@ class Write_To_File:
             dest_lang = input("")
         try:
 
-            st = translator.translate(text, src='fa', dest=dest_lang)
+            st = translator.translate(text, src='auto', dest=dest_lang)
 
         except:
             httpcore._exceptions.ConnectError()
