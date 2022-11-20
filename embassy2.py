@@ -107,10 +107,10 @@ for i in lst2:
             #
             #     print(i[e:e + lenth])
             #     lenth-=1
-print(lst2)
+# print(lst2)
 lst3=[]
 lst4=[]
-alpha_farsi = 'ابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی'
+alpha_farsi = 'ئابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهی'
 c=0
 for i in lst2:
     for e in alpha_farsi:
@@ -120,22 +120,33 @@ for i in lst2:
         lst3=i.replace("،",' ').split(" ")
         c=0
 c=0
+d=0
+new_text=""
 for i in lst3:
     for e in alpha_farsi:
         if e in i:
             print(e + 'e ' + i)
             c+=1
     if c>=1:
+        d+=1
+        new_text+=i+" "
 
-        lst4.append(online_translate(i))
-    else:
         c=0
-        print(i)
+    else:
+        if d>0:
+            print(new_text)
+            lst4.append(online_translate(new_text))
+            new_text=''
+            d=0
+            c=0
+        else:
+            c=0
+        # print(i)
         lst4.append(i)
 print(lst3)
 print(lst4)
-print(online_translate('پیرو سفر وزیر امور خارجه به جمهوری اسلامی ایران و با توجه به سفر آتی نخست وزیر بلاروس جناب آقای رومان گالوفچنکو، خواهشمند است ملاقاتی برای جناب آقای سفیر تنظیم و نتیجه در اسرع وقت به این سفارت اعلام گردد'))
-
+# print(online_translate('هیئت'))
+#
 # print()
 # print(lst2)
 # from Levenshtein import distance as lev

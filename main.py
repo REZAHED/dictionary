@@ -1,7 +1,10 @@
 import os
+
+import write_to_file
 from mypcg import select
 import menu
-
+from tkinter import *
+from tkinter import ttk
 
 # os.system('mode con: cols=60 lines=10')
 
